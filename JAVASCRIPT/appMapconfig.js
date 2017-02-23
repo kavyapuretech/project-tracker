@@ -80,6 +80,7 @@ function mapLoaded() {
 // add the layer checkbox
 var arrlayers = [];
 arrlayers[0] = layer1;
+arrlayers[1] = layer2;
 
 map1.addLayers(arrlayers);
 
