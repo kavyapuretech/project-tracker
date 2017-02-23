@@ -37,11 +37,11 @@ function map(xml) {
 	var xmlDoc = xml.responseXML;
 	
 	//dynamic layer
-	var dyanamiclayer0 = xmlDoc.getElementsByTagName('dynamiclayer2')[0];
+	var dyanamiclayer0 = xmlDoc.getElementsByTagName('dynamiclayer')[0];
 	var dyanamiclayer0_url = dyanamiclayer0.getElementsByTagName("url")[0];
 	var layer_url1 = dyanamiclayer0_url.childNodes[0];
 
-	var dyanamiclayer1 = xmlDoc.getElementsByTagName('dynamiclayer7')[0];
+	var dyanamiclayer1 = xmlDoc.getElementsByTagName('dynamiclayer2')[0];
 	var dyanamiclayer1_url = dyanamiclayer1.getElementsByTagName("url")[0];
 	var layer_url2 = dyanamiclayer1_url.childNodes[0];
 	
