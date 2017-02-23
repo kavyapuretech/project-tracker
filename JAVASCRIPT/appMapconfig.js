@@ -45,16 +45,16 @@ var searchinfo = dom.byId("search_optn").value;
 
 var BaltoTracking = new ArcGISDynamicMapServiceLayer(l1, {
 
-	"opacity" : 1.0
-
+	"opacity" : 1.0,
+    "id":"BaltoTracking"
 });
 var BaltoQuery = new ArcGISDynamicMapServiceLayer(l2, {
 
-	"opacity" :1.0
-
+	"opacity" :1.0,
+    "id":"BaltoQuery"
 });
 
-// add the layer 
+// add the Servicelayer 
 var arrlayers = [];
 arrlayers[0] = BaltoTracking;
 arrlayers[1] = BaltoQuery;
@@ -88,9 +88,6 @@ function mapLoaded() {
 		map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
 	});
 }
-
-
-        
 
 //adding the navigation toolbar on left
 var navToolbar;
