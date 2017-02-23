@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configSettings>
+	<settings>
+
+		<label label1="XML1" label2="xml2">XML Default</label>
+		<clientlogo>images/BALTIMORECITYSEAL_40.png</clientlogo>
+		<apptitle>Project Tracking: Baltimore DPW</apptitle>
+		<companylogo>images/NewWachsLogo.PNG</companylogo>
+	    <companysmalllogo>images/wachsicon.png</companysmalllogo>
+		<search>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/1</url>
+		</search>
+		<map xmlns:dt="urn:schemas-microsoft-com:datatypes">
+
+			<zoomslider>true</zoomslider>
+			<xmin>-8558453.828774555</xmin>
+			<ymin>4746044.498253688</ymin>
+			<xmax>-8493922.019319644</xmax>
+			<ymax>4800333.163350677</ymax>
+			<wkid>102100</wkid>
+			<localWKID>2248</localWKID>
+			<northarrow>source=@Embed(source='src/assets/icons/NorthArrow.png')</northarrow>
+
+		</map>
+		<vetiledlayerstreet culture="en-US" key="Ao-1ZsdYgIJ78TGQYHHQ2BucDl37tg1R3iPX1ekLuMMoj7b3pOMkQHUV-myGUr3I" loaderror="Alert.show(event.fault.faultString, 'VETiledLayer loadError')" mapstyle="road"/>
+		<gridlayer>
+
+			<id>GridLayer</id>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoPlats/MapServer</url>
+			<alpha>.2</alpha>
+
+		</gridlayer>
+		<dynamiclayer>
+
+			<id>GISLayer</id>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoTracking/MapServer</url>
+			<alpha>1.0</alpha>
+
+		</dynamiclayer>
+		<dynamiclayer2>
+
+			<id>QueryLayer</id>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer</url>
+			<alpha>.8</alpha>
+
+		</dynamiclayer2>
+		<dynamiclayer3>
+
+			<id>PressureZoneLayer</id>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoPressureZones/MapServer</url>
+			<alpha>.9</alpha>
+
+		</dynamiclayer3>
+		<dynamiclayer4>
+
+			<id>GridAssignment</id>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoGridAssignment/MapServer</url>
+			<alpha>.9</alpha>
+
+		</dynamiclayer4>
+		<dynamiclayer5>
+
+			<id>GISLayer</id>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoGridValve/MapServer</url>
+			<alpha>1.0</alpha>
+
+		</dynamiclayer5>
+		<dynamiclayer6>
+
+			<id>GISLayer</id>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoGridHydrant/MapServer</url>
+			<alpha>1.0</alpha>
+
+		</dynamiclayer6>
+		<dynamiclayer7>
+
+			<id>GISLayer</id>
+			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoTracking_HYD/MapServer</url>
+			<alpha>.8</alpha>
+
+		</dynamiclayer7>
+		<dynamiclayer8>
+
+			<id>GISLayer</id>
+			<url></url>
+			<alpha>.8</alpha>
+
+		</dynamiclayer8>
+		<querytaskquickselect>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer</url>
+		</querytaskquickselect>
+		<querytaskquerypanel>
+
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer</url>
+			<ValveStatusIndex>1</ValveStatusIndex>
+			<ActivitiesIndex>11</ActivitiesIndex>
+
+		</querytaskquerypanel>
+		<querytaskworkorders>
+			<url></url>
+		</querytaskworkorders>
+		
+		<querytaskvalves source="wSystemValve">
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/1</url>
+		</querytaskvalves>
+		<querytaskvalveactivities source="Valve Activities">
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/7</url>
+		</querytaskvalveactivities>
+		<dbquerying source="Valve Activities">
+
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/11</url>
+			<dbuniqueid>MXASSETNUM</dbuniqueid>
+			<outFields>MXASSETNUM,DATE_OPERATED,PRIMARY_ACTIVITY,VALVE_SIZE,OPNUT_DEPTH,FIELD_NOTES,EXERCISE,VALVE_CONDITION,TURNS,OP_METHOD,CLOSE_DIRECTION,MAX_TORQUE,FINAL_TORQUE,POSITION_FOUND,POSITION_LEFT,VALVE_USE,STRUCTURE,STRUCTURE_CONDITION,BYP_EXERCISED,BYP_TURNS,BYP_FIELD_NOTES,BYPASS_STRUCTURE,CREW_CHIEF,CANNOT_LOCATE,COVERED_OVER,STRUCTURE_CONDITION,LID_CONDITION,DISCREPANCY1,DISCREP1_DESCRIPTION,DISCREPANCY2,DISCREP2_DESCRIPTION,DISCREPANCY3,DISCREP3_DESCRIPTION,SURFACE_COVER,FROZEN,NEED_TO_RAISE,PACKING_LEAK,EASTING,NORTHING</outFields>
+
+		</dbquerying>
+		<dbqueryingHYD source="Hydrant Activities">
+
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/16</url>
+			<dbuniqueid>MXASSETNUM</dbuniqueid>
+			<outFields>*</outFields>
+
+		</dbqueryingHYD>
+		<identifytask>
+			<url></url>
+		</identifytask>
+		<findtasksite>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/find</url>
+		</findtasksite>
+		<findtasksiteHWOs>
+			<url></url>
+		</findtasksiteHWOs>
+		<findaddressparams>
+			<defaultAddress>600 Abel Wolman Municipal Building Baltimore, MD 21202</defaultAddress>
+		</findaddressparams>
+		<findtileparams>
+
+			<layerids>2</layerids>
+			<searchfields>areaname</searchfields>
+			<defaultTile>FF24</defaultTile>
+
+		</findtileparams>
+		<findvalveactivitiesparams>
+
+			<layerids>7</layerids>
+			<searchfields>TRANSFERRED_facilityID</searchfields>
+
+		</findvalveactivitiesparams>
+		<findvalveparamsvnum>
+
+			<layerids>1</layerids>
+			<searchfields>FACILITYID</searchfields>
+			<defaultValve>V89FF24</defaultValve>
+
+		</findvalveparamsvnum>
+		<findhydrantparamshnum>
+
+			<layerids>0</layerids>
+			<searchfields>FACILITYID</searchfields>
+
+		</findhydrantparamshnum>
+		<findvalveparamsassetid>
+
+			<layerids>0,1</layerids>
+			<searchfields>FACILITYID</searchfields>
+
+		</findvalveparamsassetid>
+		<findHWOvalveparamsassetid>
+
+			<layerids>X</layerids>
+			<searchfields>Transferred_UNITID</searchfields>
+
+		</findHWOvalveparamsassetid>
+		<findtaskisosite>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/GeomNetCaw/MapServer/find</url>
+		</findtaskisosite>
+		<findisoparams>
+
+			<layerids>8</layerids>
+			<searchfields>OBJECTID</searchfields>
+
+		</findisoparams>
+		<infowindowfeaturelayer  source="wSystemValve">
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/1</url>
+		</infowindowfeaturelayer>
+		<infowindowfeaturelayerHyd>
+			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/0</url>
+		</infowindowfeaturelayerHyd>
+		<homelink>
+			<url>http://www.wachsws.com/</url>
+		</homelink>
+		<newslink>
+			<url></url>
+		</newslink>
+		<solutionslink>
+			<url></url>
+		</solutionslink>
+		<serviceslink>
+			<url></url>
+		</serviceslink>
+		<querylayer>
+
+			<valvequerylayer></valvequerylayer>
+			<hydrantquerylayer></hydrantquerylayer>
+			<tilequerylayer></tilequerylayer>
+
+		</querylayer>
+		<reports>
+
+			<r1 url=""/>
+			<r2 url=""/>
+
+		</reports>
+
+	</settings>
+</configSettings>

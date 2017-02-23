@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project Tracker</title>
+		<link rel="icon" type="image/png" href= "" id="clienticon">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.19/dijit/themes/claro/claro.css">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.19/esri/css/esri.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="CSS/main.css">
+
+		<script	type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://js.arcgis.com/3.19/"></script>
+		<script type="text/javascript" src="JAVASCRIPT/appMapconfig.js"></script>
+		<script type="text/javascript" src="JAVASCRIPT/basemaplayer.js"></script>
+		<script type="text/javascript" src="JAVASCRIPT/jquery.js"></script>
+		<script type="text/javascript" src="amdloader/appLayoutLoader.js"></script>
+		<script type="text/javascript" src="JAVASCRIPT/appConfigLoader.js"></script>
+		<script type="text/javascript" src="JAVASCRIPT/menudropdown.js"></script>
+		<script type="text/javascript" src="JAVASCRIPT/message.js"></script>
+
+	</head>
+	<body class="claro">
+		<div class="container-fluid">
+			<div class="navbar-header topheader">
+				<a class="navbar-brand"><img
+				src="" id="clientmainlogo" height="30px" width="45px"></a>
+				<h6 id="projectname">
+				<font face="Monospace">Project Tracker </font>
+					<br>
+				<font face="times">	<span class="ban" id="citytagname"></span></font></h6>
+			</div>
+			<div class=titlebar>
+				<ul class="nav navbar-nav">
+					<li class="pull-left">
+						<a href="https://www.puretechltd.com/"
+						target="_blank"> <i><u>Home</u></i></a>
+					</li>
+					<li>
+						<a
+						href="https://www.glassdoor.com/Overview/Working-at-Pure-Technologies-EI_IE20859.11,28.htm"
+						target="_blank"><i><u>GlassDoor</u></i></a>
+					</li>
+					<li>
+						<a
+						href="https://www.linkedin.com/company/pure-technologies"
+						target="_blank"> <i><u>linkedin</u></i></a>
+					</li>
+					<li>
+						<a
+						href="https://www.google.com/maps/@39.2283899,-76.8915302,12z"
+						target="_blank"> <i><u>map</u></i></a>
+					</li>
+					<li id="biglogo">
+					
+						<img src="" id="companyicon" alt="WachsWaters"
+						style="position: relative; right: 0; top:2px;">
+					</li>
+						<a id="companymini"><img src="" id="companyminiicon"
+					alt="wachsicon" height="37px" width="60px"></a>
+					
+
+				</ul>
+			</div>	
+			
+		</div> 
+		
+		<div class="toolbar">
+		 	<div id="basemapgallary_buttons"></div>
+		<a style="position: absolute; right: 95px; cursor: pointer; top:55px; color:black;" > <span>Quick Select</span>
+	
+	<select id="quickselect">  <!--quick select -->
+		
+	</select>     </a>
+		</div>
+
+		<div id="navigationicons">
+	  <div data-dojo-type="dijit/form/Button" id="zoomin"  data-dojo-props="iconClass:'zoominIcon'"></div><br>
+      <div data-dojo-type="dijit/form/Button" id="zoomout" data-dojo-props="iconClass:'zoomoutIcon'"></div><br>     
+      <div data-dojo-type="dijit/form/Button" id="zoomprev" data-dojo-props="iconClass:'zoomprevIcon'"></div><br>
+      <div data-dojo-type="dijit/form/Button" id="zoomnext" data-dojo-props="iconClass:'zoomnextIcon'"></div><br>
+      <div data-dojo-type="dijit/form/Button" id="zoomfullext" data-dojo-props="iconClass:'zoomfullextIcon'"></div><br>
+      <div data-dojo-type="dijit/form/Button" id="pan" data-dojo-props="iconClass:'panIcon'"></div><br>
+		</div>
+     
+		<nav style="overflow:hidden">
+               <!--widgetPanelContent.htm -->
+			<div id="widgetcontent"></div>
+		</nav>
+
+		<div>
+
+			<div class="navbar-header pull-right">
+				<a id="" class="nav-expander fixed"> WIDGETS </a>
+				<a class="nav-expander fixed" id="nav-expandermini">&#9776;</a>
+			</div>
+		</div>
+		
+
+		<!--index_map.js -->
+		<div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+			<div id="basemapPanelDiv">
+				<div style="height: 40px;">
+					<h4
+					style="float: left; width: 80%; margin: 5px; vertical-align: center;">Select
+					a Basemap</h4>
+					<span style="float: right; font-size: 26px; margin: 0px 10px;"
+					onclick="openBasemap()">&times;</span>
+				</div>
+				<hr style="margin: 0px 0px 5px 0px;">
+				<div id="basemapGallery"></div>
+			</div>
+			<div id="layerlistdiv">
+			<div id="layerlist"></div>
+			</div>
+			<div id="search"></div>
+			<div id="LocateButton"></div>
+     		<div id="HomeButton"></div>
+	
+		</div>
+		<!--index_map.js end -->
+
+		<!-- message div  message.js  -->
+		<div id="message_popup"></div>
+		<!-- message div  message.js  -->
+
+		<!-- xmldata.js -->
+		<input type="hidden" id="layer1_id">
+		<input type="hidden" id="layer2_id">
+		
+		<input type="hidden" id="template">
+		<input type="hidden" id="txt_id">
+		<input type="hidden" id="search_optn">
+		
+		
+		<!-- xmldata.js end -->
+	
+	</body>
+</html>
