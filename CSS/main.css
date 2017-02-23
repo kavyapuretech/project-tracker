@@ -389,26 +389,6 @@ to {
 	}
 }
 
-@media only screen and (min-width: 768px) {
-	/* For mobile phones:ipads */
-	#search {
-		top: 120px;
-	}
-}
-
-@media only screen and (max-width: 414px) {
-	/* For mobile phones:iphones */
-	#search {
-		top: 122px;
-	}
-}
-
-@media only screen and (max-width: 360px) {/* For mobile phones: */
-	#search {
-		top: 120px;
-	}
-}
-
 @media only screen and (max-width: 414px) {
 	/* For mobile phones:ipads */
 	#basemapPanelDiv {
@@ -552,7 +532,7 @@ to {
 	background-repeat: no-repeat;
 }
 
-#navigationicons{
+#MapNavBtnDiv{
 	position : absolute;
 	top: 322px;
 	left: 12px;
@@ -562,7 +542,7 @@ to {
 }
 @media only screen and (max-width: 414px) {
 	/* For mobile phones,ipads */
-	#navigationicons {
+	#MapNavBtnDiv {
 		display: none;
 	}
 }

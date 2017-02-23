@@ -89,6 +89,7 @@ function mapLoaded() {
 	});
 }
 
+
 //adding the navigation toolbar on left
 var navToolbar;
 var drawToolbar;

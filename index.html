@@ -22,9 +22,10 @@
 		<script type="text/javascript" src="JAVASCRIPT/message.js"></script>
 
 	</head>
-	<body class="claro">
-		<div class="container-fluid">
-			<div class="navbar-header topheader">
+	<body class="claro" id="ContainerDiv">
+	<div id="HeaderDiv">	
+		<div class="container-fluid" id="HeadrTitleBarDiv">
+			<div class="navbar-header topheader" id="HeaderTitleBarDiv_Left">
 				<a class="navbar-brand"><img
 				src="" id="clientmainlogo" height="30px" width="45px"></a>
 				<h6 id="projectname">
@@ -33,7 +34,7 @@
 				<font face="times">	<span class="ban" id="citytagname"></span></font></h6>
 			</div>
 			<div class=titlebar>
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" id="HeaderTitleBarDiv_Right">
 					<li class="pull-left">
 						<a href="https://www.puretechltd.com/"
 						target="_blank"> <i><u>Home</u></i></a>
@@ -59,15 +60,14 @@
 						style="position: relative; right: 0; top:2px;">
 					</li>
 						<a id="companymini"><img src="" id="companyminiicon"
-					alt="wachsicon" height="37px" width="60px"></a>
-					
+					alt="wachsicon" height="37px" width="60px"></a>				
 
 				</ul>
 			</div>	
 			
 		</div> 
 		
-		<div class="toolbar">
+		<div class="toolbar" id="HeaderNavBarDiv">
 		 	<div id="basemapgallary_buttons"></div>
 		<a style="position: absolute; right: 95px; cursor: pointer; top:55px; color:black;" > <span>Quick Select</span>
 	
@@ -75,8 +75,8 @@
 		
 	</select>     </a>
 		</div>
-
-		<div id="navigationicons">
+</div>
+		<div id="MapNavBtnDiv">
 	  <div data-dojo-type="dijit/form/Button" id="zoomin"  data-dojo-props="iconClass:'zoominIcon'"></div><br>
       <div data-dojo-type="dijit/form/Button" id="zoomout" data-dojo-props="iconClass:'zoomoutIcon'"></div><br>     
       <div data-dojo-type="dijit/form/Button" id="zoomprev" data-dojo-props="iconClass:'zoomprevIcon'"></div><br>
@@ -87,7 +87,7 @@
      
 		<nav style="overflow:hidden">
                <!--widgetPanelContent.htm -->
-			<div id="widgetcontent"></div>
+			<div id="widgetPanelDiv"></div>
 		</nav>
 
 		<div>

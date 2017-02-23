@@ -21,7 +21,7 @@ require([ "dojo/dom", "dojo/_base/xhr", "dojo/domReady!" ], function(dom, xhr) {
     xhr.get({
 		url : url3,
 		load : function(html) {
-			dom.byId("widgetcontent").innerHTML = html;
+			dom.byId("widgetPanelDiv").innerHTML = html;
 			
 		}
 	});
