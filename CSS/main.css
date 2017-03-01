@@ -28,6 +28,14 @@ html, body {
     overflow: scroll;
 }
 
+#legendDiv{
+	width: 372px;
+    z-index: 9999;
+    height: 200px; 
+    border: 1px solid #aaa;
+    overflow: scroll;
+}
+
 .esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
 	margin: 1px !important;
 }
@@ -246,7 +254,7 @@ nav {
 	position: fixed;
 	top: 112px;
 	right: -195px; /* menu offset */
-	font-size: 15px;
+	font-size: 10px;
 	width: 143px; /* menu width */
 	z-index: 2000;
 	margin: 2px 0px 0px 0px;

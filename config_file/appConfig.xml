@@ -9,7 +9,7 @@
 		<companylogo>images/NewWachsLogo.PNG</companylogo>
 	    <companysmalllogo>images/wachsicon.png</companysmalllogo>
 		<search>
-			<url>http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/1</url>
+			<url>http://www.wwsprojecttracker.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/1</url>
 		</search>
 		<map xmlns:dt="urn:schemas-microsoft-com:datatypes">
 
@@ -34,14 +34,14 @@
 		<dynamiclayer>
 
 			<id>GISLayer</id>
-			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoTracking/MapServer</url>
+			<url>http://www.wwsprojecttracker.com/ArcGIS/rest/services/Baltimore/BaltoTracking/MapServer</url>
 			<alpha>1.0</alpha>
 
 		</dynamiclayer>
 		<dynamiclayer2>
 
 			<id>QueryLayer</id>
-			<url>http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer</url>
+			<url>http://www.wwsprojecttracker.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer</url>
 			<alpha>.8</alpha>
 
 		</dynamiclayer2>

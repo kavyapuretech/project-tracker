@@ -5,6 +5,7 @@ $(function() {
 	$("#map").css("z-index", "-1");
 	$("#map").show();
 	$("#search").hide();
+
 	
 
 	$("#maps").click(function() {
@@ -16,6 +17,7 @@ $(function() {
 	$('.nav-expander').on('click', function(e) {
 		e.preventDefault();
 		$('body').toggleClass('nav-expanded');
+		 $(".collapse").collapse("hide");
 	});
 
 });

@@ -59,7 +59,7 @@ var arrlayers = [];
 arrlayers[0] = BaltoTracking;
 arrlayers[1] = BaltoQuery;
 
-map1.addLayers(arrlayers);
+
 
         var myWidget = new LayerList({
            map: map1,
@@ -67,11 +67,11 @@ map1.addLayers(arrlayers);
         },"layerlist");
         myWidget.startup();
 
-var Featuretemplate = new FeatureLayer("http://www.mywachswater.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/1", {
+var Featuretemplate = new FeatureLayer(featureurl, {
 	opacity : 0.1
 });
-
-map1.addLayers([Featuretemplate]);
+map1.addLayers(arrlayers);
+map1.addLayer(Featuretemplate);
 
 var clickcount = 0;
 function mapLoaded() {
@@ -138,22 +138,18 @@ var scalebar = new Scalebar({
 });
 
 // add the legend
-// 
-// map1.on("layers-add-result", function(evt) {
-// var layerInfo = arrayUtils.map(evt.layers, function(layer, index) {
-// return {
-// layer : layer.layer,
-// title : layer.layer.name
-// };
-// });
-// if (layerInfo.length > 0) {
-// var legendDijit = new Legend({
-// map : map1,
-// layerInfos : layerInfo
-// }, "legendDiv");
-// legendDijit.startup();
-// }
-// });
+ map1.on("layers-add-result", function (evt) {
+        var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
+          return {layer:layer.layer, title:layer.layer.name};
+        });
+        if (layerInfo.length > 0) {
+          var legendDijit = new Legend({
+            map: map1,
+            layerInfos: layerInfo
+          }, "legendDiv");
+          legendDijit.startup();
+        }
+      });
 
      
 
@@ -237,11 +233,10 @@ function executeQueryTask() {
 	optArray = strSelectedLayer.split(",");
 
 	//alert("index : " + optArray[0] + " where : " + optArray[1] + " baseurl : " + base_url);
-
+closepanels();
 	
 	queryTask = new QueryTask(base_url + "" + optArray[0]);
     
-
 	query = new Query();
 	query.returnGeometry = true;
 	query.outFields = ["*"];
@@ -267,6 +262,7 @@ function showResults(featureSet) {
 	
 	}
 }
+
 
 });
 
