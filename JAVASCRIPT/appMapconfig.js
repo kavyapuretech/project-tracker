@@ -1,7 +1,7 @@
-var map1;
+var map1, arrlayers, visible=[];
 
 require(["esri/map", "esri/dijit/Search","esri/tasks/QueryTask",
-  "esri/tasks/query", "dojo/dom", "esri/dijit/Scalebar", 
+         "esri/tasks/query", "dojo/dom", "esri/dijit/Scalebar", "dojo/query",
          "esri/layers/ArcGISDynamicMapServiceLayer","esri/dijit/LayerList", "esri/symbols/SimpleMarkerSymbol", "esri/InfoTemplate", 
          "esri/layers/FeatureLayer", "esri/dijit/BasemapGallery", "esri/dijit/Legend", 
          "dojo/_base/array", "esri/dijit/editing/AttachmentEditor", "esri/dijit/LocateButton", 
@@ -9,7 +9,7 @@ require(["esri/map", "esri/dijit/Search","esri/tasks/QueryTask",
          "dijit/registry", "esri/toolbars/draw", "esri/graphic", "esri/symbols/SimpleFillSymbol",
          "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "dojo/domReady!"],
         
-function(Map, Search,QueryTask, Query, dom, Scalebar, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
+function(Map, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
 	     FeatureLayer, BasemapGallery, Legend, arrayUtils, AttachmentEditor, LocateButton, 
 	     HomeButton, Navigation, on, parser, registry, Draw, Graphic, SimpleFillSymbol,  SimpleLineSymbol, Color) {
 	         
@@ -43,12 +43,12 @@ var featureurl = dom.byId("template").value;
 var infotext = dom.byId("txt_id").value;
 var searchinfo = dom.byId("search_optn").value;
 
-var BaltoTracking = new ArcGISDynamicMapServiceLayer(l1, {
+ BaltoTracking = new ArcGISDynamicMapServiceLayer(l1, {
 
 	"opacity" : 1.0,
     "id":"BaltoTracking"
 });
-var BaltoQuery = new ArcGISDynamicMapServiceLayer(l2, {
+ BaltoQuery = new ArcGISDynamicMapServiceLayer(l2, {
 
 	"opacity" :1.0,
     "id":"BaltoQuery"
@@ -58,19 +58,51 @@ var BaltoQuery = new ArcGISDynamicMapServiceLayer(l2, {
 var arrlayers = [];
 arrlayers[0] = BaltoTracking;
 arrlayers[1] = BaltoQuery;
+BaltoTracking.on("load",
+buildLayerList);
+map1.addLayers(arrlayers);
+function buildLayerList() {
+         var items = arrayUtils.map(BaltoTracking.layerInfos, function(info, index) {
+           if (info.defaultVisibility) {
+             visible.push(info.id);
+           }
+           return "<input type='checkbox' class='list_item'" + (info.defaultVisibility ? "checked=checked" : "") + "' id='" + info.id + "'' /><label for='" + info.id + "'>" + info.name + "</label><br>";
+         });
+         var ll = dom.byId("layer_list");
+         ll.innerHTML = items.join(' ');
+         BaltoTracking.setVisibleLayers(visible);
+         on(ll, "click", updateLayerVisibility);
+       }
+       
+       function updateLayerVisibility() {
+         var inputs = query(".list_item");
+         var input;
+         visible = [];
+
+         arrayUtils.forEach(inputs, function(input) {
+           if (input.checked) {
+             visible.push(input.id);
+           }
+         });
+         //if there aren't any layers visible set the array to be -1
+         if (visible.length === 0) {
+           visible.push(-1);
+         }
+         BaltoTracking.setVisibleLayers(visible);
+       }
+    
 
 
-
-        var myWidget = new LayerList({
-           map: map1,
-           layers: arrlayers
-        },"layerlist");
-        myWidget.startup();
+        // var myWidget = new LayerList({
+           // map: map1,
+           // layers: arrlayers
+        // },"layerlist");
+        // myWidget.startup();
 
 var Featuretemplate = new FeatureLayer(featureurl, {
 	opacity : 0.1
 });
-map1.addLayers(arrlayers);
+
 map1.addLayer(Featuretemplate);
 
 var clickcount = 0;
@@ -201,7 +233,7 @@ function extentHistoryChangeHandler() {
 
 
 var queryTask = null;
-var query = null;
+//var query = null;
 var QuickSelectSymbol =  new SimpleMarkerSymbol();
 QuickSelectSymbol.setSize(10); 
 QuickSelectSymbol = new SimpleMarkerSymbol({

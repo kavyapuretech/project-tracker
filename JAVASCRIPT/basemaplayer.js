@@ -5,7 +5,7 @@ function openBasemap() {
 
     if (basemapstatus == "off") {
         document.getElementById("basemapPanelDiv").style.display = "block";
-        document.getElementById("layerlistdiv").style.display = "none";
+        document.getElementById("layerlist").style.display = "none";
         document.getElementById("legendDiv").style.display = "none";
         basemapstatus = "on";
     } else if (basemapstatus == "on") {
@@ -17,22 +17,22 @@ function openBasemap() {
 function openLayer() {
 
     if (legendstatus == "off") {
-        document.getElementById("layerlistdiv").style.display = "block";
+        document.getElementById("layerlist").style.display = "block";
         document.getElementById("basemapPanelDiv").style.display = "none";
         document.getElementById("legendDiv").style.display = "none";
         legendstatus = "on";
     } else if (legendstatus == "on") {
-        document.getElementById("layerlistdiv").style.display = "none";
+        document.getElementById("layerlist").style.display = "none";
         legendstatus = "off";
 
     }
 }
 
-function openLegend() {
+function openLegend() { 
 
     if (layerstatus == "off") {
         document.getElementById("legendDiv").style.display = "block";
-        document.getElementById("layerlistdiv").style.display = "none";
+        document.getElementById("layerlist").style.display = "none";
         document.getElementById("basemapPanelDiv").style.display = "none";
         layerstatus = "on";
     } else if (layerstatus == "on") {
@@ -49,7 +49,7 @@ function closepanels() {
 
     }
     if (legendstatus == "on") {
-        document.getElementById("layerlistdiv").style.display = "none";
+        document.getElementById("layerlist").style.display = "none";
         legendstatus = "off";
 
     }
