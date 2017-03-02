@@ -23,70 +23,76 @@
 
 	</head>
 	<body class="claro" id="ContainerDiv">
-	<div id="HeaderDiv">	
-		<div class="container-fluid" id="HeadrTitleBarDiv">
-			<div class="navbar-header topheader" id="HeaderTitleBarDiv_Left">
-				<a class="navbar-brand"><img
-				src="" id="clientmainlogo" height="30px" width="45px"></a>
-				<h6 id="projectname">
-				<font face="arial">Project Tracker </font>
+		<div id="HeaderDiv">
+			<div class="container-fluid" id="HeadrTitleBarDiv">
+				<div class="navbar-header topheader" id="HeaderTitleBarDiv_Left">
+					<a class="navbar-brand"><img
+					src="" id="clientmainlogo" height="30px" width="45px"></a>
+					<h6 id="projectname"><font face="arial">Project Tracker </font>
 					<br>
-				<font face="times">	<span class="ban" id="citytagname"></span></font></h6>
-			</div>
-			<div class=titlebar>
-				<ul class="nav navbar-nav" id="HeaderTitleBarDiv_Right">
-					<li class="pull-left">
-						<a href="https://www.puretechltd.com/"
-						target="_blank"> <i><u>Home</u></i></a>
-					</li>
-					<li>
-						<a
-						href="https://www.glassdoor.com/Overview/Working-at-Pure-Technologies-EI_IE20859.11,28.htm"
-						target="_blank"><i><u>GlassDoor</u></i></a>
-					</li>
-					<li>
-						<a
-						href="https://www.linkedin.com/company/pure-technologies"
-						target="_blank"> <i><u>linkedin</u></i></a>
-					</li>
-					<li>
-						<a
-						href="https://www.google.com/maps/@39.2283899,-76.8915302,12z"
-						target="_blank"> <i><u>map</u></i></a>
-					</li>
-					<li id="biglogo">
-					
-						<img src="" id="companyicon" alt="WachsWaters"
-						style="position: relative; right: 0; top:2px;">
-					</li>
-						<a id="companymini"><img src="" id="companyminiicon"
-					alt="wachsicon" height="37px" width="60px"></a>				
+					<font face="times"> <span class="ban" id="citytagname"></span></font></h6>
+				</div>
+				<div class=titlebar>
+					<ul class="nav navbar-nav" id="HeaderTitleBarDiv_Right">
+						<li class="pull-left">
+							<a href="https://www.puretechltd.com/"
+							target="_blank"> <i><u>Home</u></i></a>
+						</li>
+						<li>
+							<a
+							href="https://www.glassdoor.com/Overview/Working-at-Pure-Technologies-EI_IE20859.11,28.htm"
+							target="_blank"><i><u>GlassDoor</u></i></a>
+						</li>
+						<li>
+							<a
+							href="https://www.linkedin.com/company/pure-technologies"
+							target="_blank"> <i><u>linkedin</u></i></a>
+						</li>
+						<li>
+							<a
+							href="https://www.google.com/maps/@39.2283899,-76.8915302,12z"
+							target="_blank"> <i><u>map</u></i></a>
+						</li>
+						<li id="biglogo">
 
-				</ul>
-			</div>	
-			
-		</div> 
-		
-		<div class="toolbar" id="HeaderNavBarDiv">
-		 	<div id="basemapgallary_buttons"></div>
-		<a style="position: absolute; right: 100px; cursor: pointer; top:55px; color:black;" > <span>Quick Select</span>
-	
-	<select id="quickselect">  <!--quick select -->
-		
-	</select>     </a>
+							<img src="" id="companyicon" alt="WachsWaters"
+							style="position: relative; right: 0; top:2px;">
+						</li>
+						<a id="companymini"><img src="" id="companyminiicon"
+						alt="wachsicon" height="37px" width="60px"></a>
+
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="toolbar" id="HeaderNavBarDiv">
+				<div id="basemapgallary_buttons"></div>
+				<a style="position: absolute; right: 100px; cursor: pointer; top:55px; color:black;" > <span>Quick Select</span>
+				<select id="quickselect">
+					<!--quick select -->
+
+				</select> </a>
+			</div>
 		</div>
-</div>
+
 		<div id="MapNavBtnDiv">
-	  <div data-dojo-type="dijit/form/Button" id="zoomin"  data-dojo-props="iconClass:'zoominIcon'"></div><br>
-      <div data-dojo-type="dijit/form/Button" id="zoomout" data-dojo-props="iconClass:'zoomoutIcon'"></div><br>     
-      <div data-dojo-type="dijit/form/Button" id="zoomprev" data-dojo-props="iconClass:'zoomprevIcon'"></div><br>
-      <div data-dojo-type="dijit/form/Button" id="zoomnext" data-dojo-props="iconClass:'zoomnextIcon'"></div><br>
-      <div data-dojo-type="dijit/form/Button" id="zoomfullext" data-dojo-props="iconClass:'zoomfullextIcon'"></div><br>
-      <div data-dojo-type="dijit/form/Button" id="pan" data-dojo-props="iconClass:'panIcon'"></div><br>
+			<div data-dojo-type="dijit/form/Button" id="zoomin"  data-dojo-props="iconClass:'zoominIcon'"></div>
+			<br>
+			<div data-dojo-type="dijit/form/Button" id="zoomout" data-dojo-props="iconClass:'zoomoutIcon'"></div>
+			<br>
+			<div data-dojo-type="dijit/form/Button" id="zoomprev" data-dojo-props="iconClass:'zoomprevIcon'"></div>
+			<br>
+			<div data-dojo-type="dijit/form/Button" id="zoomnext" data-dojo-props="iconClass:'zoomnextIcon'"></div>
+			<br>
+			<div data-dojo-type="dijit/form/Button" id="zoomfullext" data-dojo-props="iconClass:'zoomfullextIcon'"></div>
+			<br>
+			<div data-dojo-type="dijit/form/Button" id="pan" data-dojo-props="iconClass:'panIcon'"></div>
+			<br>
 		</div>
-     
+
 		<nav style="overflow:hidden">
-               <!--widgetPanelContent.htm -->
+			<!--widgetPanelContent.htm -->
 			<div id="widgetPanelDiv"></div>
 		</nav>
 
@@ -97,7 +103,6 @@
 				<a class="nav-expander fixed" id="nav-expandermini">&#9776;</a>
 			</div>
 		</div>
-		
 
 		<!--index_map.js -->
 		<div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" onclick="closepanels()">
@@ -112,14 +117,22 @@
 				<hr style="margin: 0px 0px 5px 0px;">
 				<div id="basemapGallery"></div>
 			</div>
-			<div id="layerlistdiv">
-			
+
+			<div id="layerlistitemsdiv">
+			<div style="height: 40px;">
+		<h4
+			style="float: left; width: 80%; margin: 0px; vertical-align: center; font-size: 14px;">Check/Uncheck to change Visibility</h4>
+			<span style="float: right; font-size: 20px; margin: 0px 10px;"
+					onclick="openLayer()">&times;</span>
 			</div>
-			
+			<hr style="margin: 0px 0px 5px 0px;">
+			<div id="layer_list"></div>
+			</div>
+
 			<div id="search"></div>
 			<div id="LocateButton"></div>
-     		<div id="HomeButton"></div>
-	
+			<div id="HomeButton"></div>
+
 		</div>
 		<!--index_map.js end -->
 
@@ -130,13 +143,12 @@
 		<!-- xmldata.js -->
 		<input type="hidden" id="layer1_id">
 		<input type="hidden" id="layer2_id">
-		
+
 		<input type="hidden" id="template">
 		<input type="hidden" id="txt_id">
 		<input type="hidden" id="search_optn">
-		
-		
+
 		<!-- xmldata.js end -->
-	
+
 	</body>
 </html>

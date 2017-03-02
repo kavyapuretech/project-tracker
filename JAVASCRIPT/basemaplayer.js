@@ -5,8 +5,8 @@ function openBasemap() {
 
     if (basemapstatus == "off") {
         document.getElementById("basemapPanelDiv").style.display = "block";
-        document.getElementById("layerlist").style.display = "none";
-        document.getElementById("legendDiv").style.display = "none";
+        document.getElementById("layerlistitemsdiv").style.display = "none";
+        
         basemapstatus = "on";
     } else if (basemapstatus == "on") {
         document.getElementById("basemapPanelDiv").style.display = "none";
@@ -17,39 +17,21 @@ function openBasemap() {
 function openLayer() {
 
     if (legendstatus == "off") {
-        document.getElementById("layerlist").style.display = "block";
+        document.getElementById("layerlistitemsdiv").style.display = "block";
         document.getElementById("basemapPanelDiv").style.display = "none";
-        document.getElementById("legendDiv").style.display = "none";
+        
         legendstatus = "on";
     } else if (legendstatus == "on") {
-        document.getElementById("layerlist").style.display = "none";
+        document.getElementById("layerlistitemsdiv").style.display = "none";
         legendstatus = "off";
 
     }
 }
 
-function openLegend() { 
-
-    if (layerstatus == "off") {
-        document.getElementById("legendDiv").style.display = "block";
-        document.getElementById("layerlist").style.display = "none";
-        document.getElementById("basemapPanelDiv").style.display = "none";
-        layerstatus = "on";
-    } else if (layerstatus == "on") {
-        document.getElementById("legendDiv").style.display = "none";
-        layerstatus = "off";
-
-    }
-}
-
 function closepanels() {
-    if (layerstatus == "on") {
-        document.getElementById("legendDiv").style.display = "none";
-        layerstatus = "off";
-
-    }
+  
     if (legendstatus == "on") {
-        document.getElementById("layerlist").style.display = "none";
+        document.getElementById("layerlistitemsdiv").style.display = "none";
         legendstatus = "off";
 
     }

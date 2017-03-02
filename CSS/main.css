@@ -1,4 +1,4 @@
-html, body {
+[12:41 PM, 3/2/2017] RJ Bak: html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
@@ -33,33 +33,29 @@ html, body {
     z-index: 9999;
     height: 200px; 
     border: 1px solid #aaa;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
 	margin: 1px !important;
 }
-/*#layerlistdiv {
-	width: 250px;
-	position: absolute !important;
-	z-index: 9999;
-	right: 0;
-	display: none;
-	border: 1px solid #aaa;
-	background: white;
-}*/
+#layer_list {
+	height:210px;
+	overflow:auto;
+}
 
-#layer_list{
+#layerlistitemsdiv{
 	  position:absolute;
 	  right: 1px;
 	  top: 84px;
-	  z-index: 100;
+	  z-index: 9999;
 	  background: #fff;
 	  border: 1px solid #000;
 	  padding: 5px;
 	  overflow : auto;
-	  height : 230px;
-	  width: 200px;
+	  height : 250px;
+	  width: 300px;
+	  display: none;
 }
 .navbar-brand {
 	float: left;
@@ -105,9 +101,11 @@ h6 {
 	rgba(218, 240, 246, 1) 100% );
 	border-top: 2px solid aliceblue;
 	border-bottom: 2px solid #ddf1fa;
+	box-shadow: 0px 10px 5px grey;
 	padding: 4px;
 	padding left: 10px;
 	height: 38px;
+	z-index: 9999;
 }
 
 .toolicons {
@@ -116,7 +114,7 @@ h6 {
 }
 
 #map, .map {
-	z-index: -1;
+	
 	width: auto;
 	margin: 0;
 	padding: 0;
@@ -292,7 +290,7 @@ body.nav-expanded {
 }
 .panel-heading {
 	padding: 10px 15px;
-	text-align: center;
+	text-align: left;
 	border-bottom: 1px solid transparent;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 0px;
@@ -422,7 +420,7 @@ to {
 
 #LocateButton {
 	position: absolute;
-	top: 508px;
+	top: 473px;
 	left: 13px;
 	z-index: 50;
 	border-radius: 5px;
@@ -446,7 +444,7 @@ to {
 	}
 }
 .esriLargeSliderTL {
-    top: 39px !important;
+    top: 2px !important;
     left: 20px;
     background: transparent;
     padding: 10px;
@@ -487,7 +485,7 @@ to {
 	position: absolute;
 	z-index: 50;
 	display: none;
-	top: 84px !important;
+	top: 46px !important;
 	cursor: pointer;
 	left: 13px !important;
 }
@@ -501,10 +499,10 @@ to {
     float: left;
     padding: 6px 7px !important;
     margin: 0;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-    border: 1px solid dimgray !important ;
+    
+    
     border-radius: 4px;
-    background-color: white !important;
+    background-color: lightgray !important;
   } 
    
 .zoominIcon {
@@ -557,7 +555,7 @@ to {
 
 #MapNavBtnDiv{
 	position : absolute;
-	top: 322px;
+	top: 286px;
 	left: 12px;
 	z-index: 50;
 	display: block;
@@ -576,6 +574,6 @@ to {
 button, input, optgroup, select, textarea {
     margin: -1px;
     font: inherit;
-    width: 70px !important; 
+   
     color: inherit;
-}
+}                        
