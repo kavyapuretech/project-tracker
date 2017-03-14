@@ -41,5 +41,5 @@ function closepanels() {
     }
     
     $('body').removeClass('nav-expanded');
-    $(".collapse").collapse("hide");
+    
 }

@@ -1,17 +1,18 @@
+/*jshint sub:true*/
 var map1, arrlayers, visible=[];
 
-require(["esri/map", "esri/dijit/Search","esri/tasks/QueryTask",
+require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
          "esri/tasks/query", "dojo/dom", "esri/dijit/Scalebar", "dojo/query",
          "esri/layers/ArcGISDynamicMapServiceLayer","esri/dijit/LayerList", "esri/symbols/SimpleMarkerSymbol", "esri/InfoTemplate", 
          "esri/layers/FeatureLayer", "esri/dijit/BasemapGallery", "esri/dijit/Legend", 
          "dojo/_base/array", "esri/dijit/editing/AttachmentEditor", "esri/dijit/LocateButton", 
          "esri/dijit/HomeButton","esri/toolbars/navigation", "dojo/on", "dojo/parser",
-         "dijit/registry", "esri/toolbars/draw", "esri/graphic", "esri/symbols/SimpleFillSymbol",
+         "dijit/registry", "esri/toolbars/draw", "esri/symbols/SimpleFillSymbol",
          "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "dojo/domReady!"],
         
-function(Map, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
+function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
 	     FeatureLayer, BasemapGallery, Legend, arrayUtils, AttachmentEditor, LocateButton, 
-	     HomeButton, Navigation, on, parser, registry, Draw, Graphic, SimpleFillSymbol,  SimpleLineSymbol, Color) {
+	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color) {
 	         
 	parser.parse();
 	
@@ -111,7 +112,18 @@ function mapLoaded() {
 		var objectId = evt.graphic.attributes["objectIdField"];
 		map1.infoWindow.setTitle(objectId);
 		clickcount = clickcount + 1;
-		map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + "<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + "<b>PRIMARY_ACTIVITY: </b>" + evt.graphic.attributes["PRIMARY_ACTIVITY"] + "</br>" + "<b>VALVE_SIZE: </b>" + evt.graphic.attributes["VALVE_SIZE"] + "</br>" + "<b>OPNUT_DEPTH: </b>" + evt.graphic.attributes["OPNUT_DEPTH"] + "</br>" + "<b>FIELD_NOTES: </b>" + evt.graphic.attributes["FIELD_NOTES"] + "</br>" + "<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + "<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + "<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + "<div id='customInfoWindowBtnDiv'><button>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
+		map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
+		"<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
+		"<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + 
+		"<b>PRIMARY_ACTIVITY: </b>" + evt.graphic.attributes["PRIMARY_ACTIVITY"] + "</br>" + 
+		"<b>VALVE_SIZE: </b>" + evt.graphic.attributes["VALVE_SIZE"] + "</br>" + 
+		"<b>OPNUT_DEPTH: </b>" + evt.graphic.attributes["OPNUT_DEPTH"] + "</br>" + 
+		"<b>FIELD_NOTES: </b>" + evt.graphic.attributes["FIELD_NOTES"] + "</br>" + 
+		"<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + 
+		"<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
+		"<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
+		"<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" +
+	    "<div id='customInfoWindowBtnDiv'><button>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
 		map1.infoWindow.resize(250, 300);
 		var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
 
