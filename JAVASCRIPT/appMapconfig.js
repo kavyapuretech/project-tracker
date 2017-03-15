@@ -1,5 +1,5 @@
 /*jshint sub:true*/
-var map1, arrlayers, visible=[];
+var map1, arrlayers, visible=[], veTileLayer;
 
 require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
          "esri/tasks/query", "dojo/dom", "esri/dijit/Scalebar", "dojo/query",
@@ -8,15 +8,15 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
          "dojo/_base/array", "esri/dijit/editing/AttachmentEditor", "esri/dijit/LocateButton", 
          "esri/dijit/HomeButton","esri/toolbars/navigation", "dojo/on", "dojo/parser",
          "dijit/registry", "esri/toolbars/draw", "esri/symbols/SimpleFillSymbol",
-         "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "dojo/domReady!"],
+         "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "esri/virtualearth/VETiledLayer", "dojo/domReady!"],
         
 function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
 	     FeatureLayer, BasemapGallery, Legend, arrayUtils, AttachmentEditor, LocateButton, 
-	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color) {
+	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color, VETiledLayer) {
 	         
 	parser.parse();
 	
-	map1 = new Map("map", {
+	map1 = new esri. Map("map", {
 		basemap : "streets", // For full list of pre-defined basemaps,
 		center : [-76.627362, 39.283028], // longitude, latitude
 		zoom : 11,
@@ -28,13 +28,6 @@ geoLocate = new LocateButton({
 	map : map1
 }, "LocateButton");
 
-// zooms out to the startup
-var home = new HomeButton({
-	map : map1
-}, "HomeButton");
-
-home.startup();
-map1.on("load", mapLoaded);
 
 //dynamic MapServicelayer
 var l1 = dom.byId("layer1_id").value;
@@ -109,8 +102,9 @@ map1.addLayer(Featuretemplate);
 var clickcount = 0;
 function mapLoaded() {
 	Featuretemplate.on("click", function(evt) {
+	    
 		var objectId = evt.graphic.attributes["objectIdField"];
-		map1.infoWindow.setTitle(objectId);
+		map1.infoWindow.setTitle(evt.graphic.attributes["OBJECTID"]);
 		clickcount = clickcount + 1;
 		map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
 		"<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
@@ -123,17 +117,21 @@ function mapLoaded() {
 		"<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
 		"<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
 		"<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" +
-	    "<div id='customInfoWindowBtnDiv'><button>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
+	    "<div id='customInfoWindowBtnDiv'><button onclick='loadtable("+evt.graphic.attributes["OBJECTID"]+")'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
 		map1.infoWindow.resize(250, 300);
 		var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
 
 		attachmentEditor.startup();
 		attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
 		map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
-	});
+	});	
+	
 }
 
-
+function loadtable(objectid){
+        document.getElementById("datatable").style.display = "block";
+        document.getElementById("objectidvalue").value = objectid;
+    }
 //adding the navigation toolbar on left
 var navToolbar;
 var drawToolbar;
@@ -221,7 +219,7 @@ sources.push({
 	maxSuggestions : 6,
          
 	// Create an InfoTemplate and include three fields
-	infoTemplate : new InfoTemplate("OBJECTID", "GRID: ${GRID}</br>LAST_ORAGNIZATION: ${LAST_ORAGNIZATION}</br>FEAT_STATUS: ${FEAT_STATUS}"),
+	infoTemplate : new InfoTemplate("${OBJECTID}", "FacilityID: ${FacilityID}</br>GRID: ${GRID}</br>FEAT_STATUS: ${FEAT_STATUS}"),
 	enableSuggestions : true,
 	minCharacters : 0
 });

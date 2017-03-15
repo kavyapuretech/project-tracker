@@ -77,7 +77,18 @@ h6 {
 	overflow: hidden;
 	position: relative;
 }
-
+#datatable{
+	position: absolute;
+	width: calc(100% - 200px);
+	height: calc(100% - 400px);
+	margin: 0  auto;
+	background: white;
+	border: 1px solid black;
+	top: 200px;
+	left: 100px;
+	z-index: 9999;
+	display: none;
+}
 .navbar-header img {
 	float: left;
 }
@@ -403,6 +414,10 @@ to {
 
 	#nav-expandermini {
 		display: block;
+		right: 6px;
+	}
+	#nav-expandermain {
+		display: none;
 	}
 	.titlebar {
 		/*float:left; */
@@ -447,7 +462,7 @@ to {
 	}
 }
 .esriLargeSliderTL {
-    top: 2px !important;
+    top: 2px;
     left: 20px;
     background: transparent;
     padding: 10px;
@@ -488,7 +503,7 @@ to {
 	position: absolute;
 	z-index: 50;
 	display: none;
-	top: 46px !important;
+	top: 46px;
 	cursor: pointer;
 	left: 13px !important;
 }
@@ -501,11 +516,9 @@ to {
     display: block;
     float: left;
     padding: 6px 7px !important;
-    margin: 0;
-    
-    
+    margin: 0; 
     border-radius: 4px;
-    background-color: lightgray !important;
+    background-color: whitesmoke !important;
   } 
    
 .zoominIcon {
@@ -558,7 +571,7 @@ to {
 
 #MapNavBtnDiv{
 	position : absolute;
-	top: 286px;
+	top: 290px;
 	left: 12px;
 	z-index: 50;
 	display: block;
@@ -569,6 +582,12 @@ to {
 	#MapNavBtnDiv {
 		display: none;
 	}
+	#search {
+		top:90px !important;
+	}
+	.esriLargeSliderTL {
+    top: 33px;
+}
 }
 #map_graphics_layer {
     cursor: pointer;
