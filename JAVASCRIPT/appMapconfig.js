@@ -22,9 +22,10 @@ function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDy
 		zoom : 11,
 		sliderStyle : "large" //slidezoom
 
-	});
+	});      
+	map1.on("load", mapLoaded);
 //location tracker
-geoLocate = new LocateButton({
+ geoLocate = new LocateButton({
 	map : map1
 }, "LocateButton");
 
@@ -86,6 +87,10 @@ function buildLayerList() {
        }
     
 
+var loadtable = function showtable(){
+        document.getElementById("datatable").style.display = "block";
+        document.getElementById("objectidvalue").value = "objectid";
+};
 
         // var myWidget = new LayerList({
            // map: map1,
@@ -117,7 +122,7 @@ function mapLoaded() {
 		"<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
 		"<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
 		"<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" +
-	    "<div id='customInfoWindowBtnDiv'><button onclick='loadtable("+evt.graphic.attributes["OBJECTID"]+")'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
+	    "<div id='customInfoWindowBtnDiv'><button onclick='loadtable'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
 		map1.infoWindow.resize(250, 300);
 		var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
 
@@ -125,13 +130,15 @@ function mapLoaded() {
 		attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
 		map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
 	});	
-	
+		
 }
 
-function loadtable(objectid){
-        document.getElementById("datatable").style.display = "block";
-        document.getElementById("objectidvalue").value = objectid;
-    }
+    
+    
+   // var mapExtentChange = map.on("extent-change", changeHandler);
+
+
+
 //adding the navigation toolbar on left
 var navToolbar;
 var drawToolbar;
@@ -165,15 +172,31 @@ registry.byId("zoomnext").on("click", function() {
 	 navToolbar.activate(Navigation.PAN);
 });
 
+ var basemaps = [];
+        var basemapRoad = new esri.dijit.Basemap({
+          layers: [new esri.dijit.BasemapLayer({
+            type: "BingMapsRoad"
+          })],
+          id: "bmRoad",
+          title: "Road",
+          thumbnailUrl:"images/Basemap.png"
+        });
+        
+         basemaps.push(basemapRoad);
+         
+
 // add basemapgallary
-var basemapGallery = new BasemapGallery({
-	showArcGISBasemaps : true,
-	map : map1
-}, "basemapGallery");
+var basemapGallery = new esri.dijit.BasemapGallery({
+          showArcGISBasemaps: true,
+          basemaps: basemaps,
+          bingMapsKey: "Ao-1ZsdYgIJ78TGQYHHQ2BucDl37tg1R3iPX1ekLuMMoj7b3pOMkQHUV-myGUr3I",
+          map: map1,
+        }, "basemapGallery");
 basemapGallery.startup();
 
 // adding scale to map
 var scalebar = new Scalebar({
+   
 	map : map1,
 	scalebarUnit : "dual"
 
