@@ -39,12 +39,12 @@ html, body {
 .esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
 	margin: 1px !important;
 }
-#layer_list {
+/*#layer_list {
 	height:210px;
 	overflow:auto;
-}
+}*/
 
-#layerlistitemsdiv{
+#layerlist{
 	  position:absolute;
 	  right: 1px;
 	  top: 84px;
@@ -52,10 +52,7 @@ html, body {
 	  background: #fff;
 	  border: 1px solid #000;
 	  padding: 5px;
-	  overflow : auto;
-	  height : 250px;
-	  width: 300px;
-	  display: none;
+	  height:90px;
 }
 .navbar-brand {
 	float: left;

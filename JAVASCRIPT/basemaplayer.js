@@ -1,11 +1,10 @@
 var basemapstatus = "off";
-var legendstatus = "off";
 var layerstatus = "off";
 function openBasemap() {
 
     if (basemapstatus == "off") {
         document.getElementById("basemapPanelDiv").style.display = "block";
-        document.getElementById("layerlistitemsdiv").style.display = "none";
+        document.getElementById("layerlist").style.display = "none";
         
         basemapstatus = "on";
     } else if (basemapstatus == "on") {
@@ -16,23 +15,23 @@ function openBasemap() {
 
 function openLayer() {
 
-    if (legendstatus == "off") {
-        document.getElementById("layerlistitemsdiv").style.display = "block";
+    if (layerstatus == "off") {
+        document.getElementById("layerlist").style.display = "block";
         document.getElementById("basemapPanelDiv").style.display = "none";
         
-        legendstatus = "on";
-    } else if (legendstatus == "on") {
-        document.getElementById("layerlistitemsdiv").style.display = "none";
-        legendstatus = "off";
+        layerstatus = "on";
+    } else if (layerstatus == "on") {
+        document.getElementById("layerlist").style.display = "none";
+        layerstatus = "off";
 
     }
 }
 
 function closepanels() {
   
-    if (legendstatus == "on") {
-        document.getElementById("layerlistitemsdiv").style.display = "none";
-        legendstatus = "off";
+    if (layerstatus == "on") {
+        document.getElementById("layerlist").style.display = "none";
+        layerstatus = "off";
 
     }
     if (basemapstatus == "on") {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
  <QuickSelectAttributes defaultlabel="Select"/>
- <querybaseurl baseurl="http://www.mywachswater.com/ArcGIS/rest/services/Baltimore/BaltoQuery/MapServer/"/>
+ <querybaseurl baseurl="https://solutions.puretechltd.com/arcgis/rest/services/Baltimore/BaltoQuery/MapServer/"/>
                         
   <QueryItem serviceindex="1" label="Clear" where="wachs_work_order like '9999999999999999999'"/> 
   <QueryItem serviceindex="19" label="16 to 24 Inch Valves - All Zones" where="1=1"/>

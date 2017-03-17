@@ -49,57 +49,26 @@ var searchinfo = dom.byId("search_optn").value;
     "id":"BaltoQuery"
 });
 
-// add the Servicelayer 
+// add the MapServicelayer 
 var arrlayers = [];
 arrlayers[0] = BaltoTracking;
 arrlayers[1] = BaltoQuery;
-BaltoTracking.on("load",
-buildLayerList);
+
 map1.addLayers(arrlayers);
-function buildLayerList() {
-         var items = arrayUtils.map(BaltoTracking.layerInfos, function(info, index) {
-           if (info.defaultVisibility) {
-             visible.push(info.id);
-           }
-           return "<input type='checkbox' class='list_item'" + (info.defaultVisibility ? "checked=checked" : "") + "' id='" + info.id + "'' /><label for='" + info.id + "'>" + info.name + "</label><br>";
-         });
-         var ll = dom.byId("layer_list");
-         ll.innerHTML = items.join(' ');
-         BaltoTracking.setVisibleLayers(visible);
-         on(ll, "click", updateLayerVisibility);
-       }
-       
-       function updateLayerVisibility() {
-         var inputs = query(".list_item");
-         var input;
-         visible = [];
+//add layerlist
 
-         arrayUtils.forEach(inputs, function(input) {
-           if (input.checked) {
-             visible.push(input.id);
-           }
-         });
-         //if there aren't any layers visible set the array to be -1
-         if (visible.length === 0) {
-           visible.push(-1);
-         }
-         BaltoTracking.setVisibleLayers(visible);
-       }
-    
+       var layerList = new LayerList({
+        map: map1,
+        showLegend: true,
+        showSubLayers: true,
+        showOpacitySlider: true,
+        layers: []
+      },"layerListDom"); 
 
-var loadtable = function showtable(){
-        document.getElementById("datatable").style.display = "block";
-        document.getElementById("objectidvalue").value = "objectid";
-};
-
-        // var myWidget = new LayerList({
-           // map: map1,
-           // layers: arrlayers
-        // },"layerlist");
-        // myWidget.startup();
-
+// add FeatureLayer
 var Featuretemplate = new FeatureLayer(featureurl, {
-	opacity : 0.1
+	opacity : 0.1,
+	outFields:["*"]
 });
 
 map1.addLayer(Featuretemplate);
@@ -107,7 +76,7 @@ map1.addLayer(Featuretemplate);
 var clickcount = 0;
 function mapLoaded() {
 	Featuretemplate.on("click", function(evt) {
-	    
+	   
 		var objectId = evt.graphic.attributes["objectIdField"];
 		map1.infoWindow.setTitle(evt.graphic.attributes["OBJECTID"]);
 		clickcount = clickcount + 1;
@@ -172,25 +141,33 @@ registry.byId("zoomnext").on("click", function() {
 	 navToolbar.activate(Navigation.PAN);
 });
 
+// add basemapgallary
  var basemaps = [];
         var basemapRoad = new esri.dijit.Basemap({
           layers: [new esri.dijit.BasemapLayer({
             type: "BingMapsRoad"
           })],
           id: "bmRoad",
-          title: "Road",
-          thumbnailUrl:"images/Basemap.png"
+          title: "Bing Road",
+          thumbnailUrl:"images/topo_map_2.jpg"
         });
         
          basemaps.push(basemapRoad);
-         
+          var basemapHybrid = new esri.dijit.Basemap({
+          layers: [new esri.dijit.BasemapLayer({
+            type: "BingMapsHybrid"
+          })],
+          id: "bmHybrid",
+          title: "Bing Aerial",
+           thumbnailUrl:"images/imagery_labels.jpg"
+        });
+        basemaps.push(basemapHybrid);
 
-// add basemapgallary
 var basemapGallery = new esri.dijit.BasemapGallery({
           showArcGISBasemaps: true,
           basemaps: basemaps,
           bingMapsKey: "Ao-1ZsdYgIJ78TGQYHHQ2BucDl37tg1R3iPX1ekLuMMoj7b3pOMkQHUV-myGUr3I",
-          map: map1,
+          map: map1
         }, "basemapGallery");
 basemapGallery.startup();
 
