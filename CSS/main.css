@@ -42,18 +42,44 @@ html, body {
 /*#layer_list {
 	height:210px;
 	overflow:auto;
-}*/
-
-#layerListDom{
 	  position:absolute;
 	  right: 1px;
 	  top: 84px;
 	  z-index: 9999;
-	  background: #fff;
-	  border: 1px solid #000;
-	  padding: 5px;
-	  height:90px;
-	  width:600px;
+	  background: #f5f5f5;
+      border: 1px solid #000;
+      display:none;
+      padding: 5px;
+      width: 28%;
+}*/
+
+#layerlist{
+	 display:none;
+      /*position:absolute;
+	  right: 1px;
+	  top: 84px;
+	  z-index: 9999;
+	  background: #f5f5f5;
+      border: 1px solid #aaa;
+     
+      padding: 5px;
+      width: 28%;
+      height:28%;
+        	*/
+}
+#layerListDom{
+	position:absolute;
+	overflow: scroll;
+	width: 28%;  
+  right: 5px;
+	  top: 84px;
+	  z-index: 9999;
+	  background: #f5f5f5;
+      border: 1px solid #aaa;
+      display:none;
+      padding: 9px;
+     
+      height:27%;
 }
 .navbar-brand {
 	float: left;

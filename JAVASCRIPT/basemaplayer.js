@@ -29,16 +29,17 @@ function openLayer() {
 
 function closepanels() {
   
-    if (layerstatus == "on") {
-        document.getElementById("layerlist").style.display = "none";
-        layerstatus = "off";
-
-    }
+    // if (layerstatus == "on") {
+        // document.getElementById("layerlist").style.display = "none";
+        // layerstatus = "off";
+// 
+    // }
     if (basemapstatus == "on") {
         document.getElementById("basemapPanelDiv").style.display = "none";
         basemapstatus = "off";
     }
     
     $('body').removeClass('nav-expanded');
+     
     
 }

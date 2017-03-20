@@ -16,6 +16,13 @@ function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDy
 	     {
 	         
 	parser.parse();
+	map1 = new Map("map", {
+        basemap : "streets", // For full list of pre-defined basemaps,
+        center : [-76.627362, 39.283028], // longitude, latitude
+        zoom : 11,
+        sliderStyle : "large" //slidezoom
+
+    });   
 	
 //dynamic MapServicelayer
 var l1 = dom.byId("layer1_id").value;
@@ -23,16 +30,7 @@ var l2 = dom.byId("layer2_id").value;
 
 var featureurl = dom.byId("template").value;
 var infotext = dom.byId("txt_id").value;
-var searchinfo = dom.byId("search_optn").value;
-
-	map1 = new Map("map", {
-		basemap : "streets", // For full list of pre-defined basemaps,
-		center : [-76.627362, 39.283028], // longitude, latitude
-		zoom : 11
-		//sliderStyle : "large" //slidezoom
-
-	});   
-	
+var searchinfo = dom.byId("search_optn").value;	
 	
  BaltoTracking = new ArcGISDynamicMapServiceLayer(l1, {
 
@@ -66,8 +64,6 @@ map1.addLayers(arrlayers);
  geoLocate = new LocateButton({
 	map : map1
 }, "LocateButton");
-
-
 
 
 map1.on("load", mapLoaded);
