@@ -12,24 +12,11 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
         
 function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
 	     FeatureLayer, BasemapGallery, Legend, arrayUtils, AttachmentEditor, LocateButton, 
-	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color, VETiledLayer) {
+	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color, VETiledLayer) 
+	     {
 	         
 	parser.parse();
 	
-	map1 = new esri. Map("map", {
-		basemap : "streets", // For full list of pre-defined basemaps,
-		center : [-76.627362, 39.283028], // longitude, latitude
-		zoom : 11,
-		sliderStyle : "large" //slidezoom
-
-	});      
-	map1.on("load", mapLoaded);
-//location tracker
- geoLocate = new LocateButton({
-	map : map1
-}, "LocateButton");
-
-
 //dynamic MapServicelayer
 var l1 = dom.byId("layer1_id").value;
 var l2 = dom.byId("layer2_id").value;
@@ -38,14 +25,23 @@ var featureurl = dom.byId("template").value;
 var infotext = dom.byId("txt_id").value;
 var searchinfo = dom.byId("search_optn").value;
 
+	map1 = new Map("map", {
+		basemap : "streets", // For full list of pre-defined basemaps,
+		center : [-76.627362, 39.283028], // longitude, latitude
+		zoom : 11
+		//sliderStyle : "large" //slidezoom
+
+	});   
+	
+	
  BaltoTracking = new ArcGISDynamicMapServiceLayer(l1, {
 
-	"opacity" : 1.0,
+    "opacity" : 1.0,
     "id":"BaltoTracking"
 });
  BaltoQuery = new ArcGISDynamicMapServiceLayer(l2, {
 
-	"opacity" :1.0,
+    "opacity" :1.0,
     "id":"BaltoQuery"
 });
 
@@ -57,14 +53,24 @@ arrlayers[1] = BaltoQuery;
 map1.addLayers(arrlayers);
 //add layerlist
 
-       var layerList = new LayerList({
+      var layerList = new LayerList({
         map: map1,
         showLegend: true,
         showSubLayers: true,
         showOpacitySlider: true,
         layers: []
       },"layerListDom"); 
+	  layerList.startup();
+	
+//location tracker
+ geoLocate = new LocateButton({
+	map : map1
+}, "LocateButton");
 
+
+
+
+map1.on("load", mapLoaded);
 // add FeatureLayer
 var Featuretemplate = new FeatureLayer(featureurl, {
 	opacity : 0.1,
@@ -180,18 +186,18 @@ var scalebar = new Scalebar({
 });
 
 // add the legend
- map1.on("layers-add-result", function (evt) {
-        var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
-          return {layer:layer.layer, title:layer.layer.name};
-        });
-        if (layerInfo.length > 0) {
-          var legendDijit = new Legend({
-            map: map1,
-            layerInfos: layerInfo
-          }, "legendDiv");
-          legendDijit.startup();
-        }
-      });
+ // map1.on("layers-add-result", function (evt) {
+        // var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
+          // return {layer:layer.layer, title:layer.layer.name};
+        // });
+        // if (layerInfo.length > 0) {
+          // var legendDijit = new Legend({
+            // map: map1,
+            // layerInfos: layerInfo
+          // }, "legendDiv");
+          // legendDijit.startup();
+        // }
+      // });
 
      
 
