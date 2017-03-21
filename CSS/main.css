@@ -623,3 +623,13 @@ button, input, optgroup, select, textarea {
    
     color: inherit;
 }                        
+#featuretable
+{
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	height: 30%;
+	width: 50%;
+		
+	background-color: white;
+}

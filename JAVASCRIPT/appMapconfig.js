@@ -1,5 +1,5 @@
 /*jshint sub:true*/
-var map1, arrlayers, visible=[], veTileLayer;
+var map1, arrlayers, visible=[], veTileLayer, clickedobjectid;
 
 require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
          "esri/tasks/query", "dojo/dom", "esri/dijit/Scalebar", "dojo/query",
@@ -8,18 +8,18 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search","esri/tasks/QueryTask",
          "dojo/_base/array", "esri/dijit/editing/AttachmentEditor", "esri/dijit/LocateButton", 
          "esri/dijit/HomeButton","esri/toolbars/navigation", "dojo/on", "dojo/parser",
          "dijit/registry", "esri/toolbars/draw", "esri/symbols/SimpleFillSymbol",
-         "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "esri/virtualearth/VETiledLayer", "dojo/domReady!"],
+         "esri/symbols/SimpleLineSymbol", "dijit/Toolbar", "dijit/form/Button", "esri/Color", "esri/virtualearth/VETiledLayer","esri/dijit/FeatureTable", "dojo/domReady!"],
         
 function(Map, Graphic, Search, QueryTask, Query,  dom, Scalebar, query, ArcGISDynamicMapServiceLayer, LayerList, SimpleMarkerSymbol, InfoTemplate,
 	     FeatureLayer, BasemapGallery, Legend, arrayUtils, AttachmentEditor, LocateButton, 
-	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color, VETiledLayer) 
+	     HomeButton, Navigation, on, parser, registry, Draw, SimpleFillSymbol,  SimpleLineSymbol, Color, VETiledLayer,FeatureTable) 
 	     {
 	         
 	parser.parse();
 	map1 = new Map("map", {
         basemap : "streets", // For full list of pre-defined basemaps,
         center : [-76.627362, 39.283028], // longitude, latitude
-        zoom : 11,
+        zoom : 18,
         sliderStyle : "large" //slidezoom
 
     });   
@@ -68,18 +68,38 @@ map1.addLayers(arrlayers);
 
 map1.on("load", mapLoaded);
 // add FeatureLayer
-var Featuretemplate = new FeatureLayer(featureurl, {
-	opacity : 0.1,
-	outFields:["*"]
-});
 
-map1.addLayer(Featuretemplate);
+var Featuretemplate;
+
 
 var clickcount = 0;
+var myFeatureTable;
 function mapLoaded() {
+    Featuretemplate = new FeatureLayer(featureurl, {
+    opacity : 0.1,
+    outFields:["*"],
+
+            definitionExpression: "1=1", 
+
+            id: "fLayer2"
+    
+});
+map1.addLayer(Featuretemplate);
 	Featuretemplate.on("click", function(evt) {
 	   
 		var objectId = evt.graphic.attributes["objectIdField"];
+		 var idProperty = Featuretemplate.objectIdField;
+
+            if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
+
+              
+
+   Featuretemplate.setDefinitionExpression("OBJECTID="+evt.graphic.attributes.OBJECTID+"");
+
+//                myFeatureTable.refresh();
+
+            }
+		
 		map1.infoWindow.setTitle(evt.graphic.attributes["OBJECTID"]);
 		clickcount = clickcount + 1;
 		map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
@@ -93,19 +113,150 @@ function mapLoaded() {
 		"<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
 		"<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
 		"<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" +
-	    "<div id='customInfoWindowBtnDiv'><button onclick='loadtable'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
+	    "<div id='customInfoWindowBtnDiv'><button id='activitybutton'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
 		map1.infoWindow.resize(250, 300);
 		var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
-
+var button = new dijit.form.Button({         label: "click for wachwash activity",         onClick: function(){            loadtable();         }     }, "activitybutton");
 		attachmentEditor.startup();
 		attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
 		map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
-	});	
 		
+		clickedobjectid = evt.graphic.attributes.OBJECTID;
+    
+
+		
+	});	
+	  myFeatureTable = new FeatureTable({
+
+            featureLayer : Featuretemplate,
+
+            map : map1,
+
+            editable: true,
+
+            syncSelection: true,
+
+            dateOptions: {
+
+              datePattern: 'M/d/y',
+
+              timeEnabled: true,
+
+              timePattern: 'H:mm',
+
+            },
+
+            // use fieldInfos object to change field's label (column header),
+
+            // change the editability of the field, and to format how field values are displayed
+
+            // you will not be able to edit callnumber field in this example.
+
+            fieldInfos: [
+
+              {
+
+                name: 'callnumber',
+
+                alias: 'Call Number',
+
+                editable: false //disable editing on this field
+
+              },
+
+              {
+
+                name: 'speed',
+
+                alias: 'Current Speed',
+
+                format: {
+
+                  template: "${value} mph" //add mph at the of the value
+
+                }
+
+              },
+
+              {
+
+                name: 'type',
+
+                alias: 'Vehicle Type'
+
+              },
+
+              {
+
+                name: 'unitname',
+
+                alias: 'Unit Name'
+
+              }
+
+            ],
+
+            // add custom menu functions to the 'Options' drop-down Menu
+
+             menuFunctions: [
+
+            {
+
+              label: "Filter Available Emergency Vehicles",
+
+              callback: function(evt){
+
+                console.log(" -- evt: ", evt);
+
+                // set definition expression on the layer
+
+                // show only available emergency vehicles
+
+                Featuretemplate.setDefinitionExpression("OBJECTID='"+evt.graphic.attributes.OBJECTID+"'");
+
+ 
+
+                // call FeatureTable.refresh() method to re-fetch features
+
+                // from the layer. Table will only show records that meet
+
+                // layer's definition expression creteria. 
+
+                myFeatureTable.refresh();
+
+              }
+
+            },{
+
+              label: "Show All Emergency Vehicles",
+
+              callback: function(evt){
+
+                console.log(" -- evt: ", evt);
+
+                Featuretemplate.setDefinitionExpression("OBJECTID='"+evt.graphic.attributes.OBJECTID+"");
+
+                myFeatureTable.refresh();
+
+              }
+
+            }]
+
+          }, 'myTableNode');
+
+ 
+
+          myFeatureTable.startup();   
+    // listen to refresh event
+
+          myFeatureTable.on("refresh", function(evt){
+
+            console.log("refresh event - ", evt);
+
+          });	
 }
 
-    
-    
+          
    // var mapExtentChange = map.on("extent-change", changeHandler);
 
 
@@ -235,7 +386,18 @@ function addPolygone(evt) {
 	var graphics = new Graphics(evt.geometry, symbol);
 	map1.graphics.add(graphic);
 }
+function loadtable(){
+                          myFeatureTable.startup();
+                  
+                      // listen to refresh event
 
+                      myFeatureTable.on("refresh", function(evt){
+                        console.log("refresh event - ", evt);
+                      });
+                      
+                      Featuretemplate.setDefinitionExpression("OBJECTID="+evt.graphic.attributes.OBJECTID+"");
+                        myFeatureTable.refresh();
+}
 function extentHistoryChangeHandler() {
 	registry.byId("zoomprev").disabled = navToolbar.isFirstExtent();
 	registry.byId("zoomnext").disabled = navToolbar.isLastExtent();
@@ -306,7 +468,17 @@ function showResults(featureSet) {
 	
 	}
 }
-
+$( "map" ).on( "click", "activitybutton", function() {
+                Featuretemplate.setDefinitionExpression("OBJECTID='"+clickedobjectid+"");
+                myFeatureTable.refresh();
+                $("#featuretable").css("display","block");
+                
+            });
+            
+            $( "map" ).on( "click", "featuretableclose", function() {
+                Featuretemplate.setDefinitionExpression("1=1");
+                $("#featuretable").css("display","none");
+            });
 
 });
 
