@@ -1,7 +1,7 @@
 var map1,barrierSymbol,
     arrlayers,
     visible = [],
-    clickedobjectid;
+    clickedmxassent;
 
 require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask", "esri/tasks/query", "dojo/dom",
  "esri/dijit/Scalebar", "dojo/query", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/dijit/LayerList", 
@@ -89,8 +89,8 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             var idProperty = Featuretemplate.objectIdField;
 
             if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
-                Featuretemplate.setDefinitionExpression("OBJECTID=" + evt.graphic.attributes.OBJECTID + "");
-                myFeaturetable.refresh();
+                Featuretemplate.setDefinitionExpression("MXASSETNUM=" + evt.graphic.attributes.MXASSETNUM + "");
+                //myFeaturetable.refresh();
 
             }
 
@@ -112,8 +112,8 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             var button = new dijit.form.Button({
                 label : "click for wachwash activity",
                 onClick : function() {
-                    Featuretemplate.setDefinitionExpression("OBJECTID='" + clickedobjectid + "'");
-                    myFeaturetable.refresh();
+                    Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
+                   // myFeaturetable.refresh();
                     $("#featuretable").css("display", "block");
                 }
             }, "activitybutton");
@@ -122,7 +122,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
                 label : "X",
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("1=1");
-                    myFeaturetable.refresh();
+                   // myFeaturetable.refresh();
                     $("#featuretable").css("display", "none");
 
                 }
@@ -131,7 +131,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
             map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
 
-            clickedobjectid = evt.graphic.attributes.OBJECTID;
+            clickedmxassent = evt.graphic.attributes.FacilityID;
             addBarrier(evt);
         });
 
@@ -142,14 +142,14 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             map : map1,
             editable : true,
             syncSelection : true,
-
             dateOptions : {
-
                 datePattern : 'M/d/y',
                 timeEnabled : true,
                 timePattern : 'H:mm'
-
             },
+            outFields: ["OBJECTID", "MXASSETNUM"+ evt.graphic.attributes["MXASSETNUM"], "CREW_CHIEF", "FIELD_NOTES", "DATE_OPERATED", "PRIMARY_ACTIVITY", "VALVE_SIZE", "EXERCISE",
+            "VALVE_CONDITION", "OPNUT_DEPTH", "SURFACE_COVER", "TURNS", "OP_METHOD", "OPEN_DIRECTION", "FROZEN"
+            ],
 
             // use fieldInfos object to change field's label (column header),
             // change the editability of the field, and to format how field values are displayed
@@ -157,20 +157,26 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
 
             fieldInfos : [{
 
-                name : 'callnumber',
-                alias : 'Call Number',
+                name : 'MXASSETNUM',
+                alias : 'FacilityID',
                 editable : false //disable editing on this field
 
             }, {
 
-                name : 'speed',
-                alias : 'Current Speed',
+                name : 'CREW_CHIEF',
+                alias : 'CREW CHIEF',
                 format : {
                     template : "${value} mph" //add mph at the of the value
 
                 }
 
-            }]
+            },
+            {
+                name: 'FIELD_NOTES',
+                alias: 'NOTES'
+            }
+            
+            ]
       }, 'myTableNode');
 
         myFeaturetable.startup();
