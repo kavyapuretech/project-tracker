@@ -72,9 +72,10 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
     function mapLoaded() {
         Featuretemplate = new FeatureLayer(featureurl, {
             opacity : 0.1,
+            mode: FeatureLayer.MODE_ONDEMAND,
             outFields : ["*"],
             definitionExpression : "1=1",
-            id : "fLayer2"
+            id : "fLayer"
 
         });
         map1.addLayer(Featuretemplate);
@@ -85,16 +86,16 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
         
         Featuretemplate.on("click", function(evt) {
                    
-            var objectId = evt.graphic.attributes["objectIdField"];
-            var idProperty = Featuretemplate.objectIdField;
+            var objectId = evt.graphic.attributes["FacilityID"];
+            var idProperty = Featuretemplate.objectId;
 
-            if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
-                Featuretemplate.setDefinitionExpression("MXASSETNUM=" + evt.graphic.attributes.MXASSETNUM + "");
+           // if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
+              //  Featuretemplate.setDefinitionExpression("MXASSETNUM=" + evt.graphic.attributes.MXASSETNUM + "");
                 //myFeaturetable.refresh();
 
-            }
+         //   }
 
-            map1.infoWindow.setTitle(evt.graphic.attributes["OBJECTID"]);
+            map1.infoWindow.setTitle(evt.graphic.attributes["FacilityID"]);
             clickcount = clickcount + 1;
             map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
             "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
@@ -106,27 +107,20 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             "<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + 
             "<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
             "<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
-            "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + "<div id='customInfoWindowBtnDiv'><button id='activitybutton'>Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
+            "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + 
+            "<div id='customInfoWindowBtnDiv'><button id=\"" + objectId + clickcount + 1+"\" >Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
             map1.infoWindow.resize(250, 300);
             var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
             var button = new dijit.form.Button({
                 label : "click for wachwash activity",
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
-                   // myFeaturetable.refresh();
+                   //myFeaturetable.refresh();  
                     $("#featuretable").css("display", "block");
                 }
-            }, "activitybutton");
-
-            var button1 = new dijit.form.Button({
-                label : "X",
-                onClick : function() {
-                    Featuretemplate.setDefinitionExpression("1=1");
-                   // myFeaturetable.refresh();
-                    $("#featuretable").css("display", "none");
-
-                }
-            }, "featuretableclose");
+            },  ""+objectId + clickcount + 1+"");
+             //objectId + clickcount+1  "activitybutton"
+            
             attachmentEditor.startup();
             attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
             map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
@@ -134,7 +128,14 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             clickedmxassent = evt.graphic.attributes.FacilityID;
             addBarrier(evt);
         });
-
+var button1 = new dijit.form.Button({
+                label : "X",
+                onClick : function() {
+                    Featuretemplate.setDefinitionExpression("1=1");
+                    myFeaturetable.refresh();
+                    $("#featuretable").css("display", "none");
+                }
+            }, "featuretableclose");
        
         var myFeaturetable = new FeatureTable({
 
@@ -147,7 +148,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
                 timeEnabled : true,
                 timePattern : 'H:mm'
             },
-            outFields: ["OBJECTID", "MXASSETNUM"+ evt.graphic.attributes["MXASSETNUM"], "CREW_CHIEF", "FIELD_NOTES", "DATE_OPERATED", "PRIMARY_ACTIVITY", "VALVE_SIZE", "EXERCISE",
+            outFields: ["OBJECTID", "MXASSETNUM", "CREW_CHIEF", "FIELD_NOTES", "DATE_OPERATED", "PRIMARY_ACTIVITY", "VALVE_SIZE", "EXERCISE",
             "VALVE_CONDITION", "OPNUT_DEPTH", "SURFACE_COVER", "TURNS", "OP_METHOD", "OPEN_DIRECTION", "FROZEN"
             ],
 
@@ -282,17 +283,17 @@ function addBarrier(evt) {
 
     sources.push({
         featureLayer : new FeatureLayer(searchinfo),
-        searchFields : ["FacilityID"],
-        displayField : "FacilityID",
+        searchFields : ["OBJECTID"],
+        displayField : "OBJECTID",
         exactMatch : false,
         outFields : ["*"],
         name : "Valvs",
-        placeholder : "V240EE23",
+        placeholder : "59379",
         maxResults : 6,
         maxSuggestions : 6,
 
         // Create an InfoTemplate and include three fields
-        infoTemplate : new InfoTemplate("${FacilityID}", "OBJECTID: ${OBJECTID}</br>GRID: ${GRID}</br>FEAT_STATUS: ${FEAT_STATUS}"),
+        infoTemplate : new InfoTemplate("${OBJECTID}", "OBJECTID: ${OBJECTID}</br>GRID: ${GRID}"),
         enableSuggestions : true,
         minCharacters : 0
     });

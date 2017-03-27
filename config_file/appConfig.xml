@@ -10,7 +10,7 @@
 	    <companysmalllogo>images/wachsicon.png</companysmalllogo>
 		<search>
 			
-			<url>https://solutions.puretechltd.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/1</url>
+			<url>https://solutions.puretechltd.com/arcgis/rest/services/Baltimore/BaltoQuery/FeatureServer/9</url>
 		</search>
 		<map xmlns:dt="urn:schemas-microsoft-com:datatypes">
 
