@@ -115,8 +115,8 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
                 label : "click for wachwash activity",
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
-                   //myFeaturetable.refresh();  
-                    $("#featuretable").css("display", "block");
+                    //myFeaturetable.refresh();  
+                    $("#featuretable").css("z-index", "100");
                 }
             },  ""+objectId + clickcount + 1+"");
              //objectId + clickcount+1  "activitybutton"
@@ -133,7 +133,7 @@ var button1 = new dijit.form.Button({
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("1=1");
                     myFeaturetable.refresh();
-                    $("#featuretable").css("display", "none");
+                    $("#featuretable").css("z-index", "-100");
                 }
             }, "featuretableclose");
        

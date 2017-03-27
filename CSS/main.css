@@ -630,8 +630,10 @@ button, input, optgroup, select, textarea {
 	left: 10%;
 	height: 50%;
 	width: 50%;
-	z-index:100;
+	z-index:-100;
 	/*margin: 100px 150px 100px 80px;*/
-	display: none;	
+	/*display: none;	*/
     /*background-color: white;*/
 }
+
+
