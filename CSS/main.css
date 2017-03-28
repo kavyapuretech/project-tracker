@@ -464,7 +464,7 @@ to {
 	position: absolute;
 	top: 473px;
 	left: 13px;
-	z-index: 50;
+	z-index: 20;
 	border-radius: 5px;
 	padding: 2px;
 }
@@ -597,7 +597,7 @@ to {
 	position : absolute;
 	top: 290px;
 	left: 12px;
-	z-index: 50;
+	z-index: 20;
 	display: block;
 	
 }
@@ -626,7 +626,7 @@ button, input, optgroup, select, textarea {
 #featuretable
 {
 	position:absolute;
-	top: 10%;
+	top: 13%;
 	left: 10%;
 	height: 50%;
 	width: 50%;
@@ -635,5 +635,4 @@ button, input, optgroup, select, textarea {
 	/*display: none;	*/
     /*background-color: white;*/
 }
-
 

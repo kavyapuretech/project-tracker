@@ -14,11 +14,12 @@
 		<script	type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://js.arcgis.com/3.19/"></script>
+		<script type="text/javascript" src="JAVASCRIPT/appConfigLoader.js"></script>
 		<script type="text/javascript" src="JAVASCRIPT/appMapconfig.js"></script>
 		<script type="text/javascript" src="JAVASCRIPT/basemaplayer.js"></script>
 		<script type="text/javascript" src="JAVASCRIPT/jquery.js"></script>
 		<script type="text/javascript" src="amdloader/appLayoutLoader.js"></script>
-		<script type="text/javascript" src="JAVASCRIPT/appConfigLoader.js"></script>
+		
 		<script type="text/javascript" src="JAVASCRIPT/menudropdown.js"></script>
 		<script type="text/javascript" src="JAVASCRIPT/message.js"></script>
 
@@ -129,9 +130,11 @@
 			<div id="HomeButton"></div>
 			
 			
- <div id="table">
-			<span id="featuretable" style="position: relative; top: 10px; right: 10px;" id="featuretableclose">X</span>
+ <div id="featuretable">
+			<span style="position: relative; top: 10px; right: 10px;" id="featuretableclose">X</span>
+			
 			<div id="myTableNode"></div>
+			
 		</div> 
 		<!--index_map.js end -->
 
@@ -142,7 +145,7 @@
 		<!-- xmldata.js -->
 		<input type="hidden" id="layer1_id">
 		<input type="hidden" id="layer2_id">
-
+        <input type="hidden" id="attribute_name">
 		<input type="hidden" id="template">
 		<input type="hidden" id="txt_id">
 		<input type="hidden" id="search_optn">

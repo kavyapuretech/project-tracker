@@ -27,6 +27,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
     var l2 = dom.byId("layer2_id").value;
 
     var featureurl = dom.byId("template").value;
+    var attributename = dom.byId("attribute_name").value;
     var infotext = dom.byId("txt_id").value;
     var searchinfo = dom.byId("search_optn").value;
 
@@ -71,7 +72,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
     var myFeaturetable;
     function mapLoaded() {
         Featuretemplate = new FeatureLayer(featureurl, {
-            opacity : 0.1,
+            opacity : 0.5,
             mode: FeatureLayer.MODE_ONDEMAND,
             outFields : ["*"],
             definitionExpression : "1=1",
@@ -86,7 +87,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
         
         Featuretemplate.on("click", function(evt) {
                    
-            var objectId = evt.graphic.attributes["FacilityID"];
+            var objectId = evt.graphic.attributes[attributename];
             var idProperty = Featuretemplate.objectId;
 
            // if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
@@ -95,8 +96,20 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
 
          //   }
 
-            map1.infoWindow.setTitle(evt.graphic.attributes["FacilityID"]);
+            map1.infoWindow.setTitle(evt.graphic.attributes[attributename]);
             clickcount = clickcount + 1;
+            // var txt = "";
+            // alert('mapconfig: '+txt);  
+           // for (i = 0; i < attributevalues.length; i++) {
+// 
+        // txt += "<b>"
+                // + attributevalues[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
+                // + "</b> : "
+                // + evt.grphics.attributes[attributevalues[i].getElementsByTagName("value")[0].childNodes[0].nodeValue]
+                // + "<br>";
+// 
+    // }
+                                 
             map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
             "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
             "<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + 
@@ -116,8 +129,9 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
                     //myFeaturetable.refresh();  
-                    $("#featuretable").css("z-index", "100");
-                }
+                    $("#featuretable").css("z-index", "9999");
+                 $("#featuretable").css("opacity", "1");
+                 }
             },  ""+objectId + clickcount + 1+"");
              //objectId + clickcount+1  "activitybutton"
             
@@ -134,6 +148,7 @@ var button1 = new dijit.form.Button({
                     Featuretemplate.setDefinitionExpression("1=1");
                     myFeaturetable.refresh();
                     $("#featuretable").css("z-index", "-100");
+                     $("#featuretable").css("opacity", "0");
                 }
             }, "featuretableclose");
        
@@ -152,9 +167,7 @@ var button1 = new dijit.form.Button({
             "VALVE_CONDITION", "OPNUT_DEPTH", "SURFACE_COVER", "TURNS", "OP_METHOD", "OPEN_DIRECTION", "FROZEN"
             ],
 
-            // use fieldInfos object to change field's label (column header),
-            // change the editability of the field, and to format how field values are displayed
-            // you will not be able to edit callnumber field in this example.
+            // use fieldInfos object to change field's label (column header)
 
             fieldInfos : [{
 
@@ -166,12 +179,7 @@ var button1 = new dijit.form.Button({
 
                 name : 'CREW_CHIEF',
                 alias : 'CREW CHIEF',
-                format : {
-                    template : "${value} mph" //add mph at the of the value
-
-                }
-
-            },
+               },
             {
                 name: 'FIELD_NOTES',
                 alias: 'NOTES'
@@ -194,8 +202,7 @@ function addBarrier(evt) {
                 evt.mapPoint,
                 barrierSymbol
               )
-            );
-          
+            );          
     }
 
     //adding the navigation toolbar on left

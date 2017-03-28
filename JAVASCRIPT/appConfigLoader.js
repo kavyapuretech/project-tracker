@@ -1,5 +1,7 @@
+var attributevalues;
 var layer1_url;
 var layer2_url;
+
 var base_url;
 var configdata;
 var quickselectdata;
@@ -69,28 +71,42 @@ function map(xml) {
      document.getElementById("search_optn").value = search_id.nodeValue;
      
     // feature layer 
-	var Featurelayer0 = xmlDoc.getElementsByTagName('search')[0];
-	var Featurelayer0_url = Featurelayer0.getElementsByTagName("url")[0];
-	var infodata = Featurelayer0_url.childNodes[0];
+    var Featurelayer0 = xmlDoc.getElementsByTagName('infowindowfeaturelayer')[0];
+    var Featurelayer0_url = Featurelayer0.getElementsByTagName("url")[0];
+    var Featurelayer0_id = Featurelayer0.getElementsByTagName("uniqueid")[0];
     
-    
+    var infodata= Featurelayer0_url.childNodes[0];
+    var uniqid= Featurelayer0_id.childNodes[0];
+   
+    document.getElementById("template").value = infodata.nodeValue;
+    document.getElementById("attribute_name").value = uniqid.nodeValue;
 
-	document.getElementById("template").value = infodata.nodeValue;
+	//var attributevalues = Featurelayer0.getElementsByTagName("outFields");
+	//alert('outfields: '+attributevalues);
+	//var txt = "";
+	// for (i = 0; i < attributes.length; i++) {
+// 
+		// txt += "<b>"
+				// + attributes[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
+				// + "</b> : "
+				// + attributes[i].getElementsByTagName("value")[0].childNodes[0].nodeValue
+				// + "<br>";
+// 
+	// }
 
-	var attributes = Featurelayer0.getElementsByTagName("attributes");
-	var txt = "";
-	for (i = 0; i < attributes.length; i++) {
-
-		txt += "<b>"
-				+ attributes[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
-				+ "</b> : "
-				+ attributes[i].getElementsByTagName("value")[0].childNodes[0].nodeValue
-				+ "<br>";
-
-	}
-
-	document.getElementById("txt_id").value = txt;
+	//document.getElementById("txt_id").value = txt;
  
+ // feature table
+//  
+    // var Featurelayer0 = xmlDoc.getElementsByTagName('infowindowfeaturelayer')[0];
+    // var Featurelayer0_url = Featurelayer0.getElementsByTagName("url")[0];
+    // var Featurelayer0_id = Featurelayer0.getElementsByTagName("uniqueid")[0];
+//     
+    // var infodata= Featurelayer0_url.childNodes[0];
+    // var uniqid= Featurelayer0_id.childNodes[0];
+//    
+    // document.getElementById("template").value = infodata.nodeValue;
+    // document.getElementById("attribute_name").value = uniqid.nodeValue;
      }
      
 function quickselect(quickselectdataresponse){
@@ -100,24 +116,21 @@ function quickselect(quickselectdataresponse){
 	var querySelectionNode = rootQuickSelectNode.getElementsByTagName("QueryItem");
 	
 	var query_url = xmlQuickSelectDoc.getElementsByTagName('querybaseurl')[0];
-	  base_url = query_url.getAttribute('baseurl');
+	     base_url = query_url.getAttribute('baseurl');
 	//alert('base_url : '+base_url);
 	
 	var defaultAttributes = rootQuickSelectNode.getElementsByTagName("QuickSelectAttributes");
 	var defaultvalue = defaultAttributes[0].getAttribute('defaultlabel');
 	$("#quickselect").append('<option >'+defaultvalue+'</option>');	
 	
-	for ( i = 0; i < querySelectionNode.length; i++) {
-		
+	for ( i = 0; i < querySelectionNode.length; i++) 
+	{	
     var elementid = querySelectionNode[i].getAttribute('serviceindex');
 	var elementvalue = querySelectionNode[i].getAttribute('label');
 	var elementdata = querySelectionNode[i].getAttribute('where');
 	
 	var optValue=elementid+","+elementdata;
 	
-	
-
 		$("#quickselect").append('<option id="'+elementid+'" where="'+elementdata+'" value="'+optValue+'" >'+elementvalue+'</option>');		
-	}
-	
+	}	
 }
