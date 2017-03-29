@@ -81,7 +81,7 @@ function map(xml) {
     document.getElementById("template").value = infodata.nodeValue;
     document.getElementById("attribute_name").value = uniqid.nodeValue;
 
-	//var attributevalues = Featurelayer0.getElementsByTagName("outFields");
+	attributevalues = Featurelayer0.getElementsByTagName("outFields")[0].childNodes[0].nodeValue.split(",");
 	//alert('outfields: '+attributevalues);
 	//var txt = "";
 	// for (i = 0; i < attributes.length; i++) {

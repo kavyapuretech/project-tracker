@@ -89,6 +89,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
                    
             var objectId = evt.graphic.attributes[attributename];
             var idProperty = Featuretemplate.objectId;
+            clickedmxassent = evt.graphic.attributes.MXASSETNUM;
 
            // if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
               //  Featuretemplate.setDefinitionExpression("MXASSETNUM=" + evt.graphic.attributes.MXASSETNUM + "");
@@ -98,48 +99,64 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
 
             map1.infoWindow.setTitle(evt.graphic.attributes[attributename]);
             clickcount = clickcount + 1;
-            // var txt = "";
-            // alert('mapconfig: '+txt);  
-           // for (i = 0; i < attributevalues.length; i++) {
-// 
-        // txt += "<b>"
-                // + attributevalues[i].getElementsByTagName("name")[0].childNodes[0].nodeValue
-                // + "</b> : "
-                // + evt.grphics.attributes[attributevalues[i].getElementsByTagName("value")[0].childNodes[0].nodeValue]
-                // + "<br>";
-// 
-    // }
+             var txt = "";
+          //   alert('mapconfig: '+txt);  
+            for (i = 0; i < attributevalues.length; i++) {
+                txt += "<b>"
+                + attributevalues[i]
+                + "</b> : "
+                + evt.graphic.attributes[""+attributevalues[i]+""]
+                + "<br>";
+    }
                                  
-            map1.infoWindow.setContent("<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
-            "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
-            "<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + 
-            "<b>PRIMARY_ACTIVITY: </b>" + evt.graphic.attributes["PRIMARY_ACTIVITY"] + "</br>" + 
-            "<b>VALVE_SIZE: </b>" + evt.graphic.attributes["VALVE_SIZE"] + "</br>" + 
-            "<b>OPNUT_DEPTH: </b>" + evt.graphic.attributes["OPNUT_DEPTH"] + "</br>" + 
-            "<b>FIELD_NOTES: </b>" + evt.graphic.attributes["FIELD_NOTES"] + "</br>" + 
-            "<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + 
-            "<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
-            "<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
-            "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + 
-            "<div id='customInfoWindowBtnDiv'><button id=\"" + objectId + clickcount + 1+"\" >Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");
-            map1.infoWindow.resize(250, 300);
+             map1.infoWindow.setContent(txt+
+            //"<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
+            // "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
+            // "<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + 
+            // "<b>PRIMARY_ACTIVITY: </b>" + evt.graphic.attributes["PRIMARY_ACTIVITY"] + "</br>" + 
+            // "<b>VALVE_SIZE: </b>" + evt.graphic.attributes["VALVE_SIZE"] + "</br>" + 
+            // "<b>OPNUT_DEPTH: </b>" + evt.graphic.attributes["OPNUT_DEPTH"] + "</br>" + 
+            // "<b>FIELD_NOTES: </b>" + evt.graphic.attributes["FIELD_NOTES"] + "</br>" + 
+            // "<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + 
+            // "<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
+            // "<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
+            // "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + 
+            "<div id='customInfoWindowBtnDiv'><button id=\"" + objectId + clickcount + 1+"\" >Click for Wachswash Activity</button><input type='checkbox' style='float:right;' onclick='voteOnIncident(" + evt.graphic.attributes.objectid + ")'></div>");           map1.infoWindow.resize(250, 300);
             var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
             var button = new dijit.form.Button({
                 label : "click for wachwash activity",
                 onClick : function() {
                     Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
-                    //myFeaturetable.refresh();  
-                    $("#featuretable").css("z-index", "9999");
+                    myFeaturetable.refresh();  
+                    $("#featuretable").css("z-index", "100");
                  $("#featuretable").css("opacity", "1");
                  }
             },  ""+objectId + clickcount + 1+"");
              //objectId + clickcount+1  "activitybutton"
             
+            voteOnIncident = function(objectId) {
+          var updatevisitdate = {
+            attributes: {
+              sf_311_serviceoid: objectId,
+              datetime: new Date().getTime(),
+              agree_with_incident: 1
+            }
+          };
+          };
+             Featuretemplate.applyEdits([updatevisitdate], null, null, 
+            function(addResults) {
+             // var numPeople = dom.byId("numPeople").innerHTML;
+             // dom.byId("numPeople").innerHTML = parseInt(numPeople, 10) + 1;
+            }, function(err){
+              alert(err);
+            }
+          );
+            
             attachmentEditor.startup();
             attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
             map1.infoWindow.show(evt.screenPoint, map1.getInfoWindowAnchor(evt.screenPoint));
 
-            clickedmxassent = evt.graphic.attributes.FacilityID;
+            
             addBarrier(evt);
         });
 var button1 = new dijit.form.Button({
