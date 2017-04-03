@@ -17,7 +17,7 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
     map1 = new Map("map", {
         basemap : "streets", // For full list of pre-defined basemaps,
         center : [-76.627362, 39.283028], // longitude, latitude
-        zoom : 18,
+        zoom : 16,
         sliderStyle : "large" //slidezoom
 
     });
@@ -70,26 +70,36 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
     var clickcount = 0;
     var Featuretemplate;
     var myFeaturetable;
+    var FeatureTableLayer;
     function mapLoaded() {
         Featuretemplate = new FeatureLayer(featureurl, {
             opacity : 0.5,
             mode: FeatureLayer.MODE_ONDEMAND,
             outFields : ["*"],
-            definitionExpression : "1=1",
             id : "fLayer"
-
-        });
+       });
+       
+       FeatureTableLayer = new FeatureLayer("https://solutions.puretechltd.com/arcgis/rest/services/Baltimore/BaltoQuery/MapServer/9", {
+            opacity : 0.5,
+            mode: FeatureLayer.MODE_ONDEMAND,
+            outFields : ["*"],
+            definitionExpression : "1=2",
+            id : "fTableLayer"
+       });
+       
         map1.addLayer(Featuretemplate);
         
         barrierSymbol = new SimpleMarkerSymbol().setStyle(SimpleMarkerSymbol.STYLE_X).setSize(20).setAngle(255);
         barrierSymbol.outline.setWidth(2).
         setColor(new Color([255,0,0]));
         
+        
         Featuretemplate.on("click", function(evt) {
                    
             var objectId = evt.graphic.attributes[attributename];
             var idProperty = Featuretemplate.objectId;
-            clickedmxassent = evt.graphic.attributes.MXASSETNUM;
+            clickedmxassent = evt.graphic.attributes.FacilityID;
+            
 
            // if (evt.graphic && evt.graphic.attributes && evt.graphic.attributes[idProperty]) {
               //  Featuretemplate.setDefinitionExpression("MXASSETNUM=" + evt.graphic.attributes.MXASSETNUM + "");
@@ -100,57 +110,34 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             map1.infoWindow.setTitle(evt.graphic.attributes[attributename]);
             clickcount = clickcount + 1;
              var txt = "";
-          //   alert('mapconfig: '+txt);  
+            //alert('mapconfig: '+txt);  
             for (i = 0; i < attributevalues.length; i++) {
                 txt += "<b>"
                 + attributevalues[i]
                 + "</b> : "
-                + evt.graphic.attributes[""+attributevalues[i]+""]
-                + "<br>";
+                + evt.graphic.attributes[attributevalues[i]]  
+                + "</br>";
+               // console.log(evt.graphic.attributes[attributevalues[i]] );
     }
                                  
              map1.infoWindow.setContent(txt+
-            //"<b>FacilityID: </b>" + evt.graphic.attributes["FacilityID"] + "</br>" + 
-            // "<b>OBJECTID: </b>" + evt.graphic.attributes["OBJECTID"] + "</br>" + 
-            // "<b>GRID: </b>" + evt.graphic.attributes["GRID"] + "</br>" + 
-            // "<b>PRIMARY_ACTIVITY: </b>" + evt.graphic.attributes["PRIMARY_ACTIVITY"] + "</br>" + 
-            // "<b>VALVE_SIZE: </b>" + evt.graphic.attributes["VALVE_SIZE"] + "</br>" + 
-            // "<b>OPNUT_DEPTH: </b>" + evt.graphic.attributes["OPNUT_DEPTH"] + "</br>" + 
-            // "<b>FIELD_NOTES: </b>" + evt.graphic.attributes["FIELD_NOTES"] + "</br>" + 
-            // "<b>VALVE_CONDITION: </b>" + evt.graphic.attributes["VALVE_CONDITION"] + "</br>" + 
-            // "<b>EXERCISED: </b>" + evt.graphic.attributes["EXERCISED"] + "</br>" + 
-            // "<b>TURNS: </b>" + evt.graphic.attributes["TURNS"] + "</br>" + 
-            // "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + 
-            "<div id='customInfoWindowBtnDiv'><button id=\"" + objectId + clickcount + 1+"\" >Click for Wachswash Activity</button><input type='checkbox' style='float:right;' onclick='voteOnIncident(" + evt.graphic.attributes.objectid + ")'></div>");           map1.infoWindow.resize(250, 300);
+            // onclick='voteOnIncident(" + evt.graphic.attributes.objectid + ")'
+             "<div id=\"" + objectId + clickcount + "\" style='width:100%'></div>" + "</br>" + 
+            "<div id='customInfoWindowBtnDiv'><button id=\"" + objectId + clickcount + 1+"\" >Click for Wachswash Activity</button><input type='checkbox' style='float:right;'></div>");          
+             map1.infoWindow.resize(250, 300);
             var attachmentEditor = new AttachmentEditor({}, dom.byId("" + objectId + clickcount + ""));
             var button = new dijit.form.Button({
                 label : "click for wachwash activity",
                 onClick : function() {
-                    Featuretemplate.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
+                    FeatureTableLayer.setDefinitionExpression("MXASSETNUM='" + clickedmxassent + "'");
                     myFeaturetable.refresh();  
-                    $("#featuretable").css("z-index", "100");
-                 $("#featuretable").css("opacity", "1");
+                    $("#featuretable").css({"z-index": "100", "height": "300", "opacity": "1","transition": "all 2s","-webkit-transition": "all 2s"});
+                    $("#featuretable").fadeIn("slow");
+                 
                  }
             },  ""+objectId + clickcount + 1+"");
-             //objectId + clickcount+1  "activitybutton"
             
-            voteOnIncident = function(objectId) {
-          var updatevisitdate = {
-            attributes: {
-              sf_311_serviceoid: objectId,
-              datetime: new Date().getTime(),
-              agree_with_incident: 1
-            }
-          };
-          };
-             Featuretemplate.applyEdits([updatevisitdate], null, null, 
-            function(addResults) {
-             // var numPeople = dom.byId("numPeople").innerHTML;
-             // dom.byId("numPeople").innerHTML = parseInt(numPeople, 10) + 1;
-            }, function(err){
-              alert(err);
-            }
-          );
+           
             
             attachmentEditor.startup();
             attachmentEditor.showAttachments(evt.graphic, Featuretemplate);
@@ -159,19 +146,19 @@ require(["esri/map", "esri/graphic", "esri/dijit/Search", "esri/tasks/QueryTask"
             
             addBarrier(evt);
         });
-var button1 = new dijit.form.Button({
+       var button1 = new dijit.form.Button({
                 label : "X",
                 onClick : function() {
-                    Featuretemplate.setDefinitionExpression("1=1");
-                    myFeaturetable.refresh();
-                    $("#featuretable").css("z-index", "-100");
-                     $("#featuretable").css("opacity", "0");
+                    FeatureTableLayer.setDefinitionExpression("1=2");
+                    //myFeaturetable.refresh();
+                    $("#featuretable").css({"z-index": "-100", "opacity": "0","transition": "all 1s","-webkit-transition": "all 1s"});
+                    //$("#featuretable").fadeOut("slow");
                 }
             }, "featuretableclose");
        
         var myFeaturetable = new FeatureTable({
 
-            featureLayer : Featuretemplate,
+            featureLayer : FeatureTableLayer,
             map : map1,
             editable : true,
             syncSelection : true,
@@ -180,28 +167,23 @@ var button1 = new dijit.form.Button({
                 timeEnabled : true,
                 timePattern : 'H:mm'
             },
-            outFields: ["OBJECTID", "MXASSETNUM", "CREW_CHIEF", "FIELD_NOTES", "DATE_OPERATED", "PRIMARY_ACTIVITY", "VALVE_SIZE", "EXERCISE",
-            "VALVE_CONDITION", "OPNUT_DEPTH", "SURFACE_COVER", "TURNS", "OP_METHOD", "OPEN_DIRECTION", "FROZEN"
-            ],
-
+            outFields: ["MXASSETNUM", "CREW_CHIEF", "FIELD_NOTES", "DATE_OPERATED", "PRIMARY_ACTIVITY", "VALVE_SIZE", "EXERCISE",
+            "VALVE_CONDITION", "OPNUT_DEPTH", "SURFACE_COVER", "TURNS", "OP_METHOD", "OPEN_DIRECTION", "FROZEN"],
+           
             // use fieldInfos object to change field's label (column header)
 
             fieldInfos : [{
-
                 name : 'MXASSETNUM',
                 alias : 'FacilityID',
                 editable : false //disable editing on this field
-
             }, {
-
                 name : 'CREW_CHIEF',
                 alias : 'CREW CHIEF',
                },
             {
                 name: 'FIELD_NOTES',
                 alias: 'NOTES'
-            }
-            
+            }            
             ]
       }, 'myTableNode');
 
@@ -317,7 +299,7 @@ function addBarrier(evt) {
         maxSuggestions : 6,
 
         // Create an InfoTemplate and include three fields
-        infoTemplate : new InfoTemplate("${OBJECTID}", "OBJECTID: ${OBJECTID}</br>GRID: ${GRID}"),
+        infoTemplate : new InfoTemplate("${OBJECTID}", "OBJECTID: ${OBJECTID}</br>CREW_CHIEF: ${CREW_CHIEF}"),
         enableSuggestions : true,
         minCharacters : 0
     });
@@ -384,8 +366,7 @@ function addBarrier(evt) {
         map1.graphics.clear();
         var resultFeatures = featureSet.features;
 
-        for (var i = 0,
-            il = resultFeatures.length; i < il; i++) {
+        for (var i = 0,il = resultFeatures.length; i < il; i++) {
 
             var graphic = resultFeatures[i];
             graphic.setSymbol(QuickSelectSymbol);

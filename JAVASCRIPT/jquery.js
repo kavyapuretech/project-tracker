@@ -5,7 +5,7 @@ $(function() {
     $("#map").css("z-index", "-1");
     $("#map").show();
     $("#search").hide();
-
+    
 
     $("#maps").click(function() {
         $("#map").show();
@@ -18,5 +18,8 @@ $(function() {
         $('body').toggleClass('nav-expanded');
         
     });
-    
+      $("#featuretableclose").click(function() {
+        $("#featuretable").fadeOut("slow");
+       
+    });
 });

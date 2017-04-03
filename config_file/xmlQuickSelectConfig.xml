@@ -4,13 +4,13 @@
  <querybaseurl baseurl="https://solutions.puretechltd.com/arcgis/rest/services/Baltimore/BaltoQuery/MapServer/"/>
                         
   <QueryItem serviceindex="1" label="Clear" where="wachs_work_order like '9999999999999999999'"/> 
-  <QueryItem serviceindex="19" label="16 to 24 Inch Valves - All Zones" where="1=1"/>
-  <QueryItem serviceindex="20" label="Valves to Open" where="1=1"/>
-  <QueryItem serviceindex="21" label="Added Large Valves to Assess" where="1=1"/>
-  <QueryItem serviceindex="22" label="Added Intermediate Valves to Assess - Zone 1" where="1=1"/>
-  <QueryItem serviceindex="23" label="Added Small Valves to Assess - Zone 1" where="1=1"/>
-  <QueryItem serviceindex="24" label="High Priority Work Orders" where="1=1"/> 
-  <QueryItem serviceindex="25" label="Medium Priority Work Orders" where="1=1"/> 
-  <QueryItem serviceindex="26" label="Low Priority Work Orders" where="1=1"/>    
+  <QueryItem serviceindex="11" label="16 to 24 Inch Valves - All Zones" where="1=1"/>
+  <QueryItem serviceindex="12" label="Valves to Open" where="1=1"/>
+  <QueryItem serviceindex="13" label="Added Large Valves to Assess" where="1=1"/>
+  <QueryItem serviceindex="14" label="Added Intermediate Valves to Assess - Zone 1" where="1=1"/>
+  <QueryItem serviceindex="15" label="Added Small Valves to Assess - Zone 1" where="1=1"/>
+  <QueryItem serviceindex="16" label="High Priority Work Orders" where="1=1"/> 
+  <QueryItem serviceindex="17" label="Medium Priority Work Orders" where="1=1"/> 
+  <QueryItem serviceindex="18" label="Low Priority Work Orders" where="1=1"/>    
  <separator type="separator"/>           
 </root>

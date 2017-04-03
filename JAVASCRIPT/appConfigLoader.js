@@ -11,7 +11,7 @@ $(document).ready(function() {
 	configdata = xmlreader("config_file/appConfig.xml");
 	quickselectdata = xmlreader("config_file/xmlQuickSelectConfig.xml");
     
-	map(configdata);
+	loadmaplayers(configdata);
 	quickselect(quickselectdata);
 
 });
@@ -35,7 +35,7 @@ function xmlreader(filename) {
 
 }
 
-function map(xml) {
+function loadmaplayers(xml) {
 	var xmlDoc = xml.responseXML;
 	
 	//dynamic layer
@@ -64,7 +64,7 @@ function map(xml) {
     document.getElementById("companyminiicon").src = companysmalllogo.childNodes[0].nodeValue;
 
     // search option
-    var searchoptions = xmlDoc.getElementsByTagName('search')[0];
+    var searchoptions = xmlDoc.getElementsByTagName('dbquerying')[0];
     var searchoptions_url = searchoptions.getElementsByTagName("url")[0];
     var search_id = searchoptions_url.childNodes[0];
     
@@ -82,7 +82,8 @@ function map(xml) {
     document.getElementById("attribute_name").value = uniqid.nodeValue;
 
 	attributevalues = Featurelayer0.getElementsByTagName("outFields")[0].childNodes[0].nodeValue.split(",");
-	//alert('outfields: '+attributevalues);
+	                 // appconfigdata.configsettings.settings.dbquerying.outFields.split(",");
+	//alert('mapfields: '+attributevalues);
 	//var txt = "";
 	// for (i = 0; i < attributes.length; i++) {
 // 

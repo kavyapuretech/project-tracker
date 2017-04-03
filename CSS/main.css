@@ -626,13 +626,16 @@ button, input, optgroup, select, textarea {
 #featuretable
 {
 	position:absolute;
-	top: 13%;
-	left: 10%;
-	height: 50%;
-	width: 50%;
+	bottom: 0px;
+	right: 0px;
+	width: 100%;
 	z-index:-100;
+	transition: height 1s;
+    -webkit-transition: height 1s;
+	/*min-height: 260px;*/
+	overflow: auto;
 	/*margin: 100px 150px 100px 80px;*/
 	/*display: none;	*/
-    background-color: white;
+     background-color: #f7f8f8;
 }
 
